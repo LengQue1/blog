@@ -6,18 +6,20 @@ const controller  = require('./controllers');
 const template = require('./template');
 const config = require('./config/config-default');
 const model = require('./model');
+const log4js = require('log4js');
+const apiRouter = require('./routes/routes');
 let User = model.User;
 let Test = model.test;
+let log = log4js.getLogger(config.appName);
 // 创建一个Koa对象表示web app本身:
 const app = new Koa();
 const isProduction = process.env.NODE_ENV === 'production';
 // log request URL;
 app.use(async (ctx, next) => {
-  console.log(`Process ${ctx.request.method} ${ctx.request.url} ...`);
   var start = new Date().getTime(), execTime;
   await next();
   execTime = new Date().getTime() - start;
-  ctx.response.set('X-Response-Time', `${execTime}ms`);
+  log.info(`${ctx.method} ${decodeURIComponent(ctx.url)} - ${execTime}ms`);
 });
 
 (async () => {
@@ -26,7 +28,7 @@ app.use(async (ctx, next) => {
   //    Article: 'liuwenhao',
   //    gender: false,
   //    title: 'lengque-' + Date.now() + '@gmail.com',
-  //    author: '速度发货速度 '
+  //    author: '我？ '
   // });
   
 
@@ -91,8 +93,10 @@ app.use(template('views', {
   watch: !isProduction
 }));
 
-// 使用中间件位路由 add router middleware;
-app.use(controller());
 
-app.listen(8080);
-console.log('app started at port 8080...');
+// 使用中间件位路由 add router middleware;
+// app.use(controller());
+apiRouter(app, router);
+
+app.listen(3000);
+log.debug('app started at port 3000...');

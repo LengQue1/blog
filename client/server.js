@@ -9,7 +9,6 @@ let config = require('./server/config');
 
 function parseHTML (template) {
   const contentMarker = '{{ APP }}'
-  console.log(template);
   const i = template.indexOf(contentMarker)
   return {
     head: template.slice(0, i),

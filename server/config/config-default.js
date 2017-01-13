@@ -1,6 +1,7 @@
 var config = {
+  appName: 'blog',
   dialect: 'mysql',
-  database: 'test',
+  database: 'myblog',
   username: 'root',
   password: '',
   host: 'localhost',

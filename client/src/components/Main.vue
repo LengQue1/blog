@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h2 class="main-title">This is main </h2>
+    <h2 class="main-title">{{ test }}</h2>
     <a href="/">Main</a>
     <a href="/view1">view1</a>
     <a href="/view2">view2</a>
@@ -9,6 +9,11 @@
 
 <script>
   export default {
+    data () {
+      return {
+        test2: ''
+      }
+    },
     mounted () {
       this.$emit('view', this.meta())
     },
@@ -16,7 +21,11 @@
     preFetch () {
       return this.methods.meta()
     },
-
+    computed: {
+      test () {
+        return this.$store.state.test;
+      }
+    },
     methods: {
       meta () {
         return {
@@ -25,6 +34,12 @@
           keywords: 'view, main'
         }
       }
+    },
+    preFetch (store, router, context) {
+      console.log(store)
+      console.log(router)
+      console.log(context)
+      return store.dispatch('FETCH_TEST')
     }
   }
 </script>
