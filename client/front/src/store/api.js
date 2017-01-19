@@ -11,7 +11,6 @@ const store = {};
 store.fetchTest = () => {
   return request.get('localhost:3000/api/test')
 	 .then((res) => {
-	   console.log(res.text);
 	   return res.text;
 	 }, (err) => {
 	   console.log(err);

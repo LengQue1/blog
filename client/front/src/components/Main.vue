@@ -36,10 +36,8 @@
       }
     },
     preFetch (store, router, context) {
-      console.log(store)
-      console.log(router)
-      console.log(context)
-      return store.dispatch('FETCH_TEST')
+      console.log(store);
+      return store.dispatch('FETCH_TEST');
     }
   }
 </script>
