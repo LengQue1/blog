@@ -1,7 +1,9 @@
 <template>
   <div id="app">
+      <nprogress-container></nprogress-container>
       <Navbar :show="true"></Navbar>
       <Sidebar :show="sidebar.opened && !sidebar.hidden"></Sidebar>
+      <app-main></app-main>
   </div>
 </template>
 
@@ -9,20 +11,24 @@
 
 import Navbar  from 'components/NavBar.vue'
 import Sidebar  from 'components/SideBar.vue'
+import appMain  from 'components/Main.vue'
+import NprogressContainer from'vue-nprogress/src/NprogressContainer'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'app',
   components: {
+    NprogressContainer,
     Navbar,
-    Sidebar
+    Sidebar,
+    appMain
   },
   beforeMount () {
     const { body } = document;
     const WIDTH = 768;
     const RATIO = 3;
     const handle = () => {
-      if (!body.hidden) {
+      if (!document.hidden) {
         let rect =  body.getBoundingClientRect();
         let isMobile = rect.width - RATIO < WIDTH;
         this.toggleDevice(isMobile ? 'mobile' : 'other');
@@ -43,20 +49,39 @@ export default {
 }
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
-  @import '~animate.css';
-  @import '~bulma';
-  $fa-font-path: '~font-awesome/fonts/';
-  @import '~font-awesome/scss/font-awesome';
+<style lang="scss">
+    @import '~animate.css';
+    .animated {
+        animation-duration: .377s;
+    }
 
-  .animated {
-      animation-duration: .377s;
-  }
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
-  }
+    @import '~bulma';
 
+
+    $fa-font-path: '~font-awesome/fonts/';
+    @import '~font-awesome/scss/font-awesome';
+
+    .nprogress-container {
+        position: fixed !important;
+        width: 100%;
+        height: 50px;
+        z-index: 2048;
+        pointer-events: none;
+
+        #nprogress {
+            $color: #48e79a;
+
+            .bar {
+                background: $color;
+            }
+            .peg {
+                box-shadow: 0 0 10px $color, 0 0 5px $color;
+            }
+
+            .spinner-icon {
+                border-top-color: $color;
+                border-left-color: $color;
+            }
+        }
+    }
 </style>

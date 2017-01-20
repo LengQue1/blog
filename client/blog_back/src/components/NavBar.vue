@@ -7,7 +7,7 @@
                   <span></span>
                   <span></span>
                 </span>
-                <a class="nav-item">
+                <a href="/" class="nav-item">
                     <h1>Blog Admin</h1>
                 </a>
             </div>
