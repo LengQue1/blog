@@ -9,6 +9,7 @@
   "author": "liu",
   "license": "ISC",
   "dependencies": {
+    "jsonwebtoken": "^7.2.1",
     "koa": "^2.0.0"
   },
   "devDependencies": {

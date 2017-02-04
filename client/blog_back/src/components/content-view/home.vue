@@ -1,27 +1,26 @@
 <template>
     <div class="content has-text-centered">
         <p>
-            <img width="100" src="~assets/logo.png" :alt="description" >
+            <img width="100" src="~assets/logo.png" :alt="pkg.description" />
         </p>
 
-        <h1 class="is-title is-bold">{{ name.replace('-', ' ') }}</h1>
+        <h1 class="is-title is-bold">{{ pkg.name.replace('-', ' ') }}</h1>
 
         <p>
-            <strong>{{ description }}</strong>,
+            <strong>{{ pkg.description }}</strong>
             <a >Live Demo</a>
         </p>
 
-        <p>Supports Vue 2.0 and Bulma 0.2!</p>
+        <p>Supports Vue {{ pkg.dependencies.vue }} and Bulma {{ pkg.dependencies.bulma }} !</p>
     </div>
 </template>
 
 <script>
     export default {
-
         data () {
-            return this.$store.state.pkg
+            const pkg = this.$store.state.pkg
+            return {pkg}
         }
-
     }
 </script>
 

@@ -1,17 +1,15 @@
 <template>
   <div id="app">
       <nprogress-container></nprogress-container>
-      <Navbar :show="true"></Navbar>
-      <Sidebar :show="sidebar.opened && !sidebar.hidden"></Sidebar>
+      <Nav-bar :show="true"></Nav-bar>
+      <Side-bar :show="sidebar.opened && !sidebar.hidden"></Side-bar>
       <app-main></app-main>
   </div>
 </template>
 
 <script>
 
-import Navbar  from 'components/NavBar.vue'
-import Sidebar  from 'components/SideBar.vue'
-import appMain  from 'components/Main.vue'
+import { NavBar, appMain, SideBar }  from './components'
 import NprogressContainer from'vue-nprogress/src/NprogressContainer'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -19,8 +17,8 @@ export default {
   name: 'app',
   components: {
     NprogressContainer,
-    Navbar,
-    Sidebar,
+    NavBar,
+    SideBar,
     appMain
   },
   beforeMount () {

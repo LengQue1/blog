@@ -12,12 +12,13 @@
                 </a>
             </div>
             <div  class="nav-right">
-                <a class="nav-item is-tab">
+                <div class="nav-item is-tab">
                     <figure class="image is-16x16" style="margin-right: 8px;">
-                        <img src="http://bulma.io/images/jgthms.png">
+                        <img src="~assets/logo.png">
                     </figure>
-                    Profile<a class="nav-item is-tab">Log out</a>
-                </a>
+                    Welcome
+                    <a class="nav-item is-tab">Login</a>
+                </div>
             </div>
         </div>
     </nav>

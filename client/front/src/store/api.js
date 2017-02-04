@@ -9,7 +9,7 @@ const host = typeof location === 'undefined'
 const store = {};
 
 store.fetchTest = () => {
-  return request.get('localhost:3000/api/test')
+  return request.get(`${host}/api/test`)
 	 .then((res) => {
 	   return res.text;
 	 }, (err) => {

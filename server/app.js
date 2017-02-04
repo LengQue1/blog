@@ -2,8 +2,6 @@
 const Koa = require('koa');
 const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser');
-const controller  = require('./controllers');
-const template = require('./template');
 const config = require('./config/config-default');
 const model = require('./model');
 const log4js = require('log4js');
@@ -30,7 +28,13 @@ app.use(async (ctx, next) => {
   //    title: 'lengque-' + Date.now() + '@gmail.com',
   //    author: '我？ '
   // });
-  
+  // var user = await User.create({
+  //   email: '397561665@qq.com',
+  //   password: '123123',
+  //   name: 'lengqyue',
+  //   token: 'sdfudhfdf',
+  //   gender: false
+  // })
 
 })();
 
@@ -87,15 +91,7 @@ if (!isProduction) {
 // bodyParser
 app.use(bodyParser());
 
-// add nunjucks as view;
-app.use(template('views', {
-  noCache: !isProduction,  //断当前环境是否是production环境。如果是，就使用缓存，如果不是，就关闭缓存
-  watch: !isProduction
-}));
-
-
 // 使用中间件位路由 add router middleware;
-// app.use(controller());
 apiRouter(app, router);
 
 app.listen(3000);

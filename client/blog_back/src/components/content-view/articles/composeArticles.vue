@@ -5,7 +5,7 @@
         <h1 class="is-title is-bold">{{route.name}}</h1>
 
         <p>
-            <strong>{{pkg.description}}</strong>,
+            <strong>{{pkg.description}}</strong>
 
         </p>
 
