@@ -16,6 +16,7 @@
 
 <script>
     import Api from '../store/api'
+    import md5 from 'md5'
 
     export default {
         data () {
@@ -28,9 +29,17 @@
         },
         methods: {
             onSubmit () {
-                console.log(this.form)
+                this.form.password = md5(this.form.password);
+                console.log(this.form);
                 Api.login(this.form).then(res => {
-                    console.log(res)
+                    if (res.data.status == 'success') {
+                        sessionStorage.setItem('token', res.data.token)
+                      console.log('登录成功!');
+                      this.$router.push({path: '/'})
+                    } else if (res.data.status === 'fail'){
+                      console.log('登陆失败，请检查帐号与密码');
+                      sessionStorage.removeItem('token');
+                    }
                 }).catch(err => console.log(err))
             }
         }

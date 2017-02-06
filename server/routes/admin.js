@@ -12,20 +12,22 @@ exports.login = async function (ctx, next) {
 		})
 		
 		user = {
-			name: users[0].dataValues.name,
+			name: users[0].name,
 			timestamp: (new Date()).valueOf(),
 		}
-		console.log(user)
-			
-		let password = users[0].dataValues.password;
+
+
+		let password = users[0].password;
 		
 		if (password == ctx.request.body.password) {
-			// let token = token.createToken(user);
-			// users[0].dataValues.token = token;
-			// console.log(users[0].dataValues.token)
+			let Token = token.createToken(user);
+			 users[0].token = Token;
+
+			 await users[0].save();
+
 			return ctx.body = {
 				status: 'success',
-				token: 'asdfshjkfhs!@#@!r$#r#1123213213213'
+				token: Token
 			}
 			
 		} else {
@@ -36,6 +38,7 @@ exports.login = async function (ctx, next) {
 		}
 		
 	} catch (e) {
+		console.log(e)
 		return ctx.body = {
 			status: 'fail',
 			description: 'Check the name'

@@ -9,7 +9,7 @@ var config = {
   host: 'localhost',
   port: 3306,
   
-  tokenSecret: 'test',
+  tokenSecret: 'why',
   tokenExpiresIn: 3600
   
 };
