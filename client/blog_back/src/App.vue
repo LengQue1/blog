@@ -12,6 +12,7 @@
 import { NavBar, appMain, SideBar }  from './components'
 import NprogressContainer from'vue-nprogress/src/NprogressContainer'
 import { mapGetters, mapActions } from 'vuex'
+import api from './store/api/index'
 
 export default {
   name: 'app',
@@ -36,6 +37,19 @@ export default {
     document.addEventListener('visibilitychange', handle);
     window.addEventListener('DOMContentLoaded', handle);
     window.addEventListener('resize', handle);
+
+    const { request } = api;
+    request.interceptors.request.use(config => {
+        const token = sessionStorage.getItem('token');
+
+        if (token !== null) {
+          config.headers['authorization'] = token;
+        }
+
+        return config
+
+    }, (error) => Promise.reject(error));
+
   },
   computed: mapGetters({
       sidebar: 'sidebar'

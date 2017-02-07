@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import pkg from 'package'
 import * as actions from './actions'
 import * as getters from './getters'
+import * as types from './mutation-types';
 
 import app from './modules/app'
 import menu from './modules/menu/'
@@ -20,6 +21,9 @@ const store = new Vuex.Store({
     pkg
   },
   mutations: {
+    [types.SET_USER] (state, user) {
+
+    }
   }
 
 })

@@ -17,7 +17,8 @@
                         <img src="~assets/logo.png">
                     </figure>
                     Welcome
-                    <a class="nav-item is-tab">Login</a>
+
+                    <a href="/admin/logout" class="nav-item is-tab">Login</a>
                 </div>
             </div>
         </div>

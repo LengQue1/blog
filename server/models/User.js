@@ -6,7 +6,6 @@ module.exports = db.defineModel('Users',{
 	unique: true
   },
   password: db.STRING(100),
-  name: db.STRING(100),
-  token: db.STRING(200),
-  gender: db.BOOLEAN
+  username: db.STRING(100),
+  token: { type: db.STRING(200), allowNull: true },
 });

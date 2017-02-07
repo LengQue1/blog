@@ -29,18 +29,32 @@
         },
         methods: {
             onSubmit () {
-                this.form.password = md5(this.form.password);
-                console.log(this.form);
-                Api.login(this.form).then(res => {
+                let formObj = {
+                  username: this.form.username,
+                  password: md5(this.form.password)
+                };
+                Api.login(formObj).then(res => {
                     if (res.data.status == 'success') {
                         sessionStorage.setItem('token', res.data.token)
-                      console.log('登录成功!');
-                      this.$router.push({path: '/'})
-                    } else if (res.data.status === 'fail'){
-                      console.log('登陆失败，请检查帐号与密码');
+                        this.$message({
+                          type: 'success',
+                          message: '登录成功'
+                        });
+                        this.$store.dispatch('FETCH_USER', {
+                            model: 'user',
+                            params: {}
+                        }).then(() => {
+                          this.$router.push({path: '/'});
+                        });
+
+                    } else if (res.data.status === 'fail') {
+                      this.$message({
+                        type: 'error',
+                        message: '登陆失败，请检查帐号与密码'
+                      });
                       sessionStorage.removeItem('token');
                     }
-                }).catch(err => console.log(err))
+                }).catch(err => console.log(err));
             }
         }
     }

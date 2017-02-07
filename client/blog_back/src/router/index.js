@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import menuModule from 'vuex-store/modules/menu'
 import Home from 'content-view/home'
-import Login from '../components/login'
+import Login from '../components/Login'
+import Logout from '../components/Logout'
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,11 @@ export default new VueRouter({
 			path: '/admin/login',
 			component: Login
 		},
+    {
+      name: 'logout',
+      path: '/admin/logout',
+      component: Logout
+    },
 		...generateRoutesFromMenu(menuModule.state.items),
 		{
 			path: '*',

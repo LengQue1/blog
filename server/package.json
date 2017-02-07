@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "initdb": "node init-db.js",
     "start": "node start.js"
   },
   "author": "liu",
   "license": "ISC",
   "dependencies": {
     "jsonwebtoken": "^7.2.1",
-    "koa": "^2.0.0"
+    "koa": "^2.0.0",
+    "md5": "^2.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",

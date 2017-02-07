@@ -1,4 +1,4 @@
-const { login, logout } = require('./admin');
+const { login, logout, permission } = require('./admin');
 
 module.exports = (app, router) => {
   
@@ -9,6 +9,8 @@ module.exports = (app, router) => {
   router.post('/api/admin/login', login);
   
   router.post('/api/admin/logout', logout);
+
+  // router.get('')
   
   app.use(router.routes());
-}
+};

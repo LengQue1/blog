@@ -5,9 +5,9 @@ const bodyParser = require('koa-bodyparser');
 const config = require('./config/config-default');
 const model = require('./model');
 const log4js = require('log4js');
+const md5 = require('md5');
 const apiRouter = require('./routes/routes');
 let User = model.User;
-let Test = model.test;
 let log = log4js.getLogger(config.appName);
 // 创建一个Koa对象表示web app本身:
 const app = new Koa();
@@ -20,24 +20,42 @@ app.use(async (ctx, next) => {
   log.info(`${ctx.method} ${decodeURIComponent(ctx.url)} - ${execTime}ms`);
 });
 
+// bodyParser
+app.use(bodyParser());
+
+// 使用中间件位路由 add router middleware;
+apiRouter(app, router);
+
 (async () => {
-  
-  // var test = await Test.create({
-  //    Article: 'liuwenhao',
-  //    gender: false,
-  //    title: 'lengque-' + Date.now() + '@gmail.com',
-  //    author: '我？ '
-  // });
-  // var user = await User.create({
-  //   email: '397561665@qq.com',
-  //   password: '123123',
-  //   name: 'lengqyue',
-  //   token: 'sdfudhfdf',
-  //   gender: false
-  // })
+
+    const IsExistedUser  = await User.count();
+
+    if (IsExistedUser == 0) {
+
+        if (config.defaultAdminName == '' && config.defaultAdminPassword == '') {
+            log.error('default passoword and username Not null ');
+            return process.exit(1);
+        }
+
+        let createDefaultUser = await User.create({
+            username: config.defaultAdminName,
+            password: md5(config.defaultAdminPassword),
+            email: config.email
+        })
+
+    }
+
+    // static file support
+    if (!isProduction) {
+        let staticFiles = require('./static-files');
+        app.use(staticFiles('/public/', __dirname + '/public'));
+    }
+
+    app.listen(3000);
+
+    log.debug('app started at port 3000...');
 
 })();
-
 
 // 创建一条记录
 // (async () =>{
@@ -82,17 +100,3 @@ app.use(async (ctx, next) => {
 //   }
 // })();
 
-// static file support
-if (!isProduction) {
-  let staticFiles = require('./static-files');
-  app.use(staticFiles('/public/', __dirname + '/public'));
-}
-
-// bodyParser
-app.use(bodyParser());
-
-// 使用中间件位路由 add router middleware;
-apiRouter(app, router);
-
-app.listen(3000);
-log.debug('app started at port 3000...');

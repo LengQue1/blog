@@ -7,15 +7,14 @@ exports.login = async function (ctx, next) {
 		
 		users = await User.findAll({
 			where: {
-				name: ctx.request.body.username
+				username: ctx.request.body.username
 			}
-		})
+		});
 		
 		user = {
 			name: users[0].name,
 			timestamp: (new Date()).valueOf(),
-		}
-
+		};
 
 		let password = users[0].password;
 		
@@ -38,7 +37,7 @@ exports.login = async function (ctx, next) {
 		}
 		
 	} catch (e) {
-		console.log(e)
+		console.log(e);
 		return ctx.body = {
 			status: 'fail',
 			description: 'Check the name'
@@ -48,5 +47,78 @@ exports.login = async function (ctx, next) {
 }
 
 exports.logout = async function (ctx, next) {
-	
-}
+	let tokenClient;
+	try {
+        tokenClient = ctx.request.headers['authorization'];
+	} catch (err) {
+		return ctx.body = {
+			status: 'fail',
+			description: err
+		}
+	}
+
+	if (!tokenClient) {
+		return ctx.body = {
+			status: 'fail',
+			description: 'Token no fount'
+		}
+	}
+
+	const result = token.verifyToken(tokenClient);
+	// 如果用密匙解析不了
+	if (result == false) {
+		return ctx.body = {
+			status: 'fail',
+			description: 'token verify failed'
+		};
+	} else {
+		await User.update({ token: null }, { where: { token: tokenClient } })
+		return ctx.body = {
+			status: 'success',
+			description: 'token deleted'
+		}
+	}
+};
+
+exports.permission = async function (ctx, next) {
+	let tokenClient;
+
+	try {
+		tokenClient = ctx.request.headers['authorization']
+	} catch (e) {
+		return ctx.body = {
+			status: 'fail',
+			description: e
+		}
+	}
+
+	if (!token) {
+		return ctx.body = {
+			status: 'fail',
+			description: 'token no fount'
+		}
+	}
+
+	const result = token.verifyToken(tokenClient);
+
+	if (result == false) {
+		return ctx.body = {
+			status: 'fail',
+			description: 'token verify failed'
+		};
+	}
+
+	let tokenServer = await User.findAll({ attributes: ['token']});
+
+	console.log(tokenServer);
+
+	if (tokenServer === tokenClient) {
+		return next();
+	} else {
+		return ctx.body = {
+			status: 'fail',
+			description: 'Token invalid'
+		};
+	}
+
+};
