@@ -1,8 +1,8 @@
 <template>
   <div id="app">
       <nprogress-container></nprogress-container>
-      <Nav-bar :show="true"></Nav-bar>
-      <Side-bar :show="sidebar.opened && !sidebar.hidden"></Side-bar>
+      <Nav-bar :show="device.isLogin"></Nav-bar>
+      <Side-bar :show="sidebar.opened && !sidebar.hidden && device.isLogin"></Side-bar>
       <app-main></app-main>
   </div>
 </template>
@@ -52,7 +52,8 @@ export default {
 
   },
   computed: mapGetters({
-      sidebar: 'sidebar'
+      sidebar: 'sidebar',
+      device: 'device'
   }),
   methods: mapActions([
     'toggleDevice',

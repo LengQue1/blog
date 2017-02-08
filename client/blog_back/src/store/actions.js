@@ -8,9 +8,12 @@ export const expandMenu = ({ commit }, menuItem) => {
 		menuItem.expanded = menuItem.expanded || false
 		commit(types.EXPAND_MENU, menuItem)
 	}
-}
+};
 export const FETCH_USER = ({ commit, state }, { model, params,}) => {
   return Api.fetchList(model, params).then( response => {
-    console.log(response);
-  })
-}
+    response.forEach((user) => {
+      console.log(user)
+      commit(types.SET_USER, { user })
+    });
+  });
+};

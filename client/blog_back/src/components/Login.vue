@@ -1,15 +1,17 @@
 <template>
     <section>
-
-        <label class="label">UserName</label>
-        <p class="control">
+        <div class="container">
+          <h1>欢迎登录</h1>
+          <label class="label">UserName</label>
+          <p class="control">
             <input class="input" type="text" name="username" v-model="form.username" placeholder="Text input">
-        </p>
-        <label class="label">password</label>
-        <p class="control">
+          </p>
+          <label class="label">password</label>
+          <p class="control">
             <input class="input" v-model="form.password"  type="password" name="password" placeholder="Text input">
-        </p>
-        <a class="button is-primary" @click="onSubmit">submit</a>
+          </p>
+          <a class="button is-primary" @click="onSubmit">submit</a>
+        </div>
 
     </section>
 </template>
@@ -41,11 +43,14 @@
                           message: '登录成功'
                         });
                         this.$store.dispatch('FETCH_USER', {
-                            model: 'user',
-                            params: {}
+                            model: 'users',
+                            params: {
+                              attributes: { exclude: ['password']}
+                            }
                         }).then(() => {
                           this.$router.push({path: '/'});
                         });
+                        this.$store.state.app.device.isLogin = true;
 
                     } else if (res.data.status === 'fail') {
                       this.$message({

@@ -92,7 +92,8 @@ exports.permission = async function (ctx, next) {
 		}
 	}
 
-	if (!token) {
+
+	if (!tokenClient) {
 		return ctx.body = {
 			status: 'fail',
 			description: 'token no fount'
@@ -110,9 +111,8 @@ exports.permission = async function (ctx, next) {
 
 	let tokenServer = await User.findAll({ attributes: ['token']});
 
-	console.log(tokenServer);
-
-	if (tokenServer === tokenClient) {
+	if (tokenServer[0].token === tokenClient) {
+        console.log('验证成功！');
 		return next();
 	} else {
 		return ctx.body = {

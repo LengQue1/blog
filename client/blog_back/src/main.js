@@ -34,13 +34,15 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     if (token != 'null' && token != null) {
+      store.state.app.device.isLogin = true;
       next();
     } else {
+      store.state.app.device.isLogin = false;
       next('/admin/login')
     }
   }
 
-})
+});
 
 new Vue({
   store,

@@ -1,5 +1,5 @@
 <template>
-    <nav class="nav has-shadow app-navbar" :class="{ slideInDown: show, slideOutDown: !show }">
+    <nav class="nav has-shadow app-navbar" :class="{ slideInDown: show, slideOutDown: !show }" v-if="show">
         <div class="container">
             <div class="nav-left">
                 <span @click="toggleSidebar(!sidebar.opened)" class="nav-toggle">
@@ -17,8 +17,8 @@
                         <img src="~assets/logo.png">
                     </figure>
                     Welcome
-
-                    <a href="/admin/logout" class="nav-item is-tab">Login</a>
+                    <!--{{ user.username ? user.username : '' }}-->
+                    <a href="#/admin/logout" class="nav-item is-tab">Logout</a>
                 </div>
             </div>
         </div>
@@ -33,7 +33,8 @@
             show: Boolean
         },
         computed: mapGetters({
-            sidebar: 'sidebar'
+            sidebar: 'sidebar',
+
         }),
         methods: mapActions([
             'toggleSidebar'

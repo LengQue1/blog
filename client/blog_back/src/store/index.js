@@ -18,11 +18,12 @@ const store = new Vuex.Store({
     menu
   },
   state: {
+    users:{},
     pkg
   },
   mutations: {
     [types.SET_USER] (state, user) {
-
+      state.users = user.user
     }
   }
 

@@ -23,8 +23,12 @@ app.use(async (ctx, next) => {
 // bodyParser
 app.use(bodyParser());
 
+
 // 使用中间件位路由 add router middleware;
-apiRouter(app, router);
+Object.keys(model).forEach(value => {
+    apiRouter(app, router, model[value], '/api');
+});
+
 
 (async () => {
 

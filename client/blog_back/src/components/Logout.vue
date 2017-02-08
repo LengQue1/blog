@@ -8,20 +8,22 @@
   export default {
       methods: {
           logout () {
-              console.log(123);
               Api.logout().then( response => {
                   sessionStorage.removeItem('token');
                   this.$message({
                       type: 'success',
                       message: '登出成功',
                   });
-                  this.$router.push({ path: '/admin/login' })
+                  this.$router.push({ path: '/admin/login' });
+                  this.$store.state.app.device.isLogin = false;
               })
           }
       },
       watch: {
-        '$route': route => {
-            console.log(route)
+        '$route': function (route) {
+          if (route.name === 'logout') {
+            this.logout()
+          }
         }
       },
       created () {
