@@ -2,7 +2,7 @@
   <div id="app">
       <nprogress-container></nprogress-container>
       <Nav-bar :show="device.isLogin"></Nav-bar>
-      <Side-bar :show="sidebar.opened && !sidebar.hidden && device.isLogin"></Side-bar>
+      <Side-bar :isLogin="device.isLogin" :show="sidebar.opened && !sidebar.hidden && device.isLogin"></Side-bar>
       <app-main></app-main>
   </div>
 </template>

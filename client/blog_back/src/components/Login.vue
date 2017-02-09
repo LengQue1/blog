@@ -37,7 +37,8 @@
                 };
                 Api.login(formObj).then(res => {
                     if (res.data.status == 'success') {
-                        sessionStorage.setItem('token', res.data.token)
+                        sessionStorage.setItem('token', res.data.token);
+                        sessionStorage.setItem('username', this.form.username);
                         this.$message({
                           type: 'success',
                           message: '登录成功'
@@ -46,7 +47,8 @@
                             model: 'users',
                             params: {
                               attributes: { exclude: ['password']}
-                            }
+                            },
+                            username: this.form.username
                         }).then(() => {
                           this.$router.push({path: '/'});
                         });

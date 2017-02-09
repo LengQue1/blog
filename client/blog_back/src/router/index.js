@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import menuModule from 'vuex-store/modules/menu'
-import Home from 'content-view/home'
 import Login from '../components/Login'
 import Logout from '../components/Logout'
 
@@ -11,11 +10,6 @@ export default new VueRouter({
 	linkActiveClass: 'is-active',
 	scrollBehavior: () => ({ y: 0 }),
 	routes: [
-		{
-			name: 'Home',
-			path: '/',
-			component: Home
-		},
 		{
 			name: 'login',
 			path: '/admin/login',

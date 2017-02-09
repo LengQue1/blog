@@ -17,7 +17,7 @@
                         <img src="~assets/logo.png">
                     </figure>
                     Welcome
-                    <!--{{ user.username ? user.username : '' }}-->
+                    {{ user.username ? user.username : '未登录'  }}
                     <a href="#/admin/logout" class="nav-item is-tab">Logout</a>
                 </div>
             </div>
@@ -32,19 +32,32 @@
         props: {
             show: Boolean
         },
-        computed: mapGetters({
-            sidebar: 'sidebar',
-
-        }),
+        computed: {
+          ...mapGetters({
+              sidebar: 'sidebar',
+              user: 'users'
+            })
+        },
         methods: mapActions([
             'toggleSidebar'
-        ])
+        ]),
+        created () {
+           if (this.user.username === undefined) {
+             let username = sessionStorage.getItem('username');
+             this.$store.dispatch('FETCH_USER', {
+               model: 'users',
+               params: {
+                 attributes: { exclude: ['password']}
+               },
+               username: username
+             }).catch((err) => console.log(err));
+           }
+        }
     }
 </script>
 
 <style>
     .app-navbar {
-
         position: fixed;
         min-width: 100%;
         z-index: 1024;

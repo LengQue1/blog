@@ -11,13 +11,13 @@ export default {
 
 	children: [
 		{
-			name: 'AllArticles',
-			path: '/allArticles',
+			name: 'AllPost',
+			path: '/allPost',
 			component: lazyLoading('articles/allArticles')
 		},
 		{
-			name: 'ComposeArticles',
-			path: '/composeArticles',
+			name: 'ComposePost',
+			path: '/composePost',
 			component: lazyLoading('articles/composeArticles')
 		},
 		{

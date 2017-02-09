@@ -1,5 +1,5 @@
 <template>
-    <aside class="menu app-sidebar animated" :class="{ slideInLeft: show, slideOutLeft: !show }">
+    <aside class="menu app-sidebar animated" :class="{ slideInLeft: show, slideOutLeft: !show }" vi >
         <p class="menu-label">
             General
         </p>
