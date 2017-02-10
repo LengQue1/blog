@@ -16,6 +16,12 @@ module.exports = (app, router, model, prefix = "") => {
   const actions = generateActions(model);
 
   router.get(prefix + ("/" + model.name), permission, actions.findAll);
-  
+  router.get(prefix + ("/" + model.name + "/:id"), permission, actions.findById);
+
+  router.post(prefix + ("/" + model.name), permission, actions.create);
+  router.post(prefix + ("/" + model.name + "/:id"), permission, actions.updateById);
+
+  router.del(prefix + ("/" + model.name + "/:id"), permission, actions.deleteById);
+
   app.use(router.routes());
 };

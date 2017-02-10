@@ -19,7 +19,6 @@ module.exports = {
 			let result = jwt.verify(token, secret);
 			return result;
 		} catch (err) {
-            console.log(err)
 			return false;
 		}
 	},

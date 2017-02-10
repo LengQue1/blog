@@ -18,6 +18,35 @@ module.exports = function generateActions (model) {
             let result = await model.findAll(query);
 
             return ctx.body = result;
+        },
+
+        create: async (ctx, next) => {
+            let result;
+            console.log(ctx.request.body)
+            try {
+                result = await model.create(ctx.request.body);
+                ctx.status = 201;
+                return ctx.body = result
+            } catch (e) {
+
+                return ctx.body = {
+                    status: 'fail',
+                    error: e
+                };
+            }
+
+        },
+
+        findById: async (ctx, next) => {
+
+        },
+
+        updateById: async (ctx, next) => {
+
+        },
+
+        deleteById: async (ctx, next) => {
+
         }
 
     }

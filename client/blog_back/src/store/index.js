@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import pkg from 'package'
-import * as actions from './actions'
-import * as getters from './getters'
+import actions from './actions'
+import getters from './getters'
 import * as types from './mutation-types';
 
 import app from './modules/app'

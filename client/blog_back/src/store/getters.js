@@ -1,11 +1,7 @@
-const sidebar = state => state.app.sidebar;
-const device = state => state.app.device;
-const menuitems = state => state.menu.items;
-const users = state => state.users;
 
-export {
-  sidebar,
-  device,
-	menuitems,
-  users
+export default {
+  sidebar: state => state.app.sidebar,
+  device: state => state.app.device,
+	menuitems: state => state.menu.items,
+  users: state => state.users
 }

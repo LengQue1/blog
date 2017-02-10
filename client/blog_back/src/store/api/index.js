@@ -20,3 +20,9 @@ api.fetchList = (model, params) => {
     return response.data;
   })
 };
+
+api.post = (model, form) => {
+  return request.post(`${root}/${model}`, form).then( response => {
+    return response.data
+  })
+};

@@ -1,194 +1,43 @@
-<!--<template>-->
-  <!--<textarea ref="area"></textarea>-->
-<!--</template>-->
-
 <template>
-  <div class="md-panel">
-    <el-menu default-active="1" class="el-menu-demo" mode="horizontal">
-      <el-menu-item index="1">加粗</el-menu-item>
-      <el-menu-item index="2">斜体</el-menu-item>
-      <el-menu-item index="3">引用</el-menu-item>
-      <el-menu-item index="4">代码段</el-menu-item>
-      <el-submenu index="5">
-        <template slot="title">插入图片</template>
-        <el-menu-item index="5-1"><i class="el-icon-upload2"></i>上传图片</el-menu-item>
-        <el-menu-item index="5-2"><i class="el-icon-upload"></i>网络图片</el-menu-item>
-      </el-submenu>
-      <el-menu-item index="6"><i class="el-icon-more"></i>摘要</el-menu-item>
-      <el-submenu index="7">
-        <template slot="title">{{labels[mode]}}</template>
-        <el-menu-item index="7-1">{{labels['edit']}}</el-menu-item>
-        <el-menu-item index="7-2">{{labels['split']}}</el-menu-item>
-        <el-menu-item index="7-3">{{labels['preview']}}</el-menu-item>
-        <el-menu-item index="7-4">{{labels['full']}}</el-menu-item>
-      </el-submenu>
-    </el-menu>
-
-    <el-dialog title="图片上传" v-model="isUploadShow">
-      <el-upload
-        action="//up.qbox.me/"
-        type="drag"
-
-      >
-        <i class="el-icon-upload"></i>
-        <div class="el-dragger__text">将文件拖到此处，或<em>点击上传</em></div>
-        <div class="el-upload__tip" slot="tip">请确保后台已经将七牛(server/conf/config.js)相关设置配置完毕</div>
-      </el-upload>
-    </el-dialog>
-
-    <div class="md-editor" >
-      <textarea ref="markdown" ></textarea>
-      <div class="md-preview markdown" ></div>
-    </div>
-  </div>
+  <textarea ref="area"></textarea>
 </template>
 
+
 <script>
-//  import simplemde from 'simplemde'
-//  require('simplemde/dist/simplemde.min.css');
+  import simplemde from 'simplemde'
+  require('simplemde/dist/simplemde.min.css');
+  import moment from 'moment';
 
   export default {
-//    props: ['value'],
-//    mounted() {
-//      this.mde = new simplemde({element: this.$refs.area })
-//      this.mde.value(this.value)
-//    }
-    name: 'markdown',
     props: ['value'],
-    data () {
-      return {
-        labels: {
-          'edit': '编辑模式',
-          'split': '分屏模式',
-          'preview': '预览模式',
-          'full': '全屏模式'
-        },
-        mode: 'edit', // ['edit', 'split', 'preview']
-        isUploadShow: false,
-        supportWebp: false,
-        upToken: '',
-        bucketHost: '',
-        key: '',
-        form: {}
-      }
+    data() {
+      let form = {}
+      return { form }
     },
-    _preInputText (text, preStart, preEnd) {
-      let textControl = this.$refs.markdown
-      const start = textControl.selectionStart
-      const end = textControl.selectionEnd
-      const origin = this.value
-
-      if (start !== end) {
-        const exist = origin.slice(start, end)
-        text = text.slice(0, preStart) + exist + text.slice(preEnd)
-        preEnd = preStart + exist.length
-      }
-      let input = origin.slice(0, start) + text + origin.slice(end)
-
-      this.$emit('input', input)
+    mounted() {
+      this.mde = new simplemde({
+          element: this.$refs.area,
+          autofocus: true
+      });
+      this.mde.value(this.value)
+      var self = this
+      this.mde.codemirror.on('change', function() {
+        self.$emit('input', self.mde.value())
+      })
     },
-    _insertMore () {
-      this._preInputText('<!--more-->', 12, 12)
+    watch: {
+      // this would update on every keystroke, so maybe you have to remove it.
+      // component should work nonetheless, but if an external source changed the value, it would not reflect in this component.
+      value(newVal) { this.mde.value(newVal) }
     },
-    _boldText () {
-      this._preInputText('**加粗文字**', 2, 6)
-    },
-    _italicText () {
-      this._preInputText('_斜体文字_', 1, 5)
-    },
-    _blockquoteText () {
-      this._preInputText('> 引用', 3, 5)
-    },
-    _codeText () {
-      this._preInputText('```\ncode block\n```', 5, 15)
+    beforeDestroy() {
+      this.mde.toTextArea() // clean up when component gets destroyed.
     }
+
   }
 </script>
 
 <style lang="scss" scoped>
-  .md-editor textarea,
-  .md-preview {
-    line-height: 1.5;
-  }
 
-  .el-dialog__wrapper {
-  .el-dialog {
-    width: 31%;
-  }
-  }
-
-  .md-panel {
-    display: block;
-    position: relative;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    font-size: 14px;
-    overflow: hidden;
-
-  .md-editor {
-    width: 100%;
-    height: auto;
-    transition: width .3s;
-    background-color: #fff;
-    position: relative;
-
-  textarea {
-    box-sizing: border-box;
-    display: block;
-    border-style: none;
-    resize: none;
-    outline: 0;
-    height: 100%;
-    min-height: 500px;
-    width: 100%;
-    padding: 15px 15px 0
-  }
-
-  .md-preview {
-    box-sizing: border-box;
-    position: absolute;
-    word-wrap: break-word;
-    word-break: normal;
-    width: 50%;
-    height: 100%;
-    left: 100%;
-    top: 0;
-    background-color: #F9FAFC;
-    border-left: 1px solid #ccc;
-    overflow: auto;
-    transition: left .3s, width .3s;
-    padding: 15px 15px 0;
-  }
-  }
-
-  .md-editor.edit {
-    textarea {
-      width: 100%;
-    }
-  }
-
-  .md-editor.split {
-  textarea {
-    width: 50%;
-  }
-
-  .md-preview {
-      left: 50%;
-      width: 50%;
-    }
-  }
-
-  .md-editor.preview {
-    textarea {
-      width: 50%;
-    }
-
-  .md-preview {
-      left: 0;
-      width: 100%;
-      border-left-style: none;
-    }
-  }
-  }
 
 </style>
