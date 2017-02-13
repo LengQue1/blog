@@ -11,7 +11,7 @@
             <a >Live Demo</a>
         </p>
 
-        <p>Supports Vue {{ pkg.dependencies.vue }} and Bulma {{ pkg.dependencies.bulma }} !</p>
+
     </div>
 </template>
 

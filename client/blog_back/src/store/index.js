@@ -18,15 +18,19 @@ const store = new Vuex.Store({
     menu
   },
   state: {
-    users:{},
+    users: {},
+    list: [],
     pkg
   },
   mutations: {
     [types.SET_USER] (state, user) {
       state.users = user.user
+    },
+    [types.SET_LIST] (state, obj) {
+      state.list = obj
     }
   }
 
-})
+});
 
 export default store

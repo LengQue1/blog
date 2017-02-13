@@ -16,10 +16,6 @@
             <button class="button is-primary" @click="onSubmit">提交</button>
           </p>
         </div>
-        <p>
-            <strong>{{pkg.description}}</strong>
-        </p>
-        <p>Supports Vue {{pkg.dependencies.vue}} and Bulma {{pkg.dependencies.bulma}}!</p>
     </div>
 </template>
 
@@ -31,19 +27,18 @@
     export default {
         data () {
             const route = this.$route;
-            const pkg = this.$store.state.pkg;
             let form = {};
-            return { pkg, route, form }
+            return {route, form }
         },
 
         components: { marked },
 
         methods: {
             validate () {
-              this.form.content = 'saajokfkf'
-              this.form.user_id = 1
-              this.form.category = '未分类'
-              this.form.summary = '什么是摘要'
+              this.form.summary = markedown(this.form.markdownContent.split('<!--more-->')[0]);
+              this.form.content = markedown(this.form.markdownContent.replace(/<!--more-->/g, ''));
+              this.form.category = '未分类';
+              this.form.read_num = 0;
             },
             onSubmit () {
                 this.validate();
@@ -61,7 +56,8 @@
                       this.$message({
                         type: 'success',
                         message: '文章提交成功!'
-                      })
+                      });
+                      this.$router.push({ path: '/allPost'})
                     }
 
                 })

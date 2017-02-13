@@ -4,12 +4,13 @@
       <Nav-bar :show="device.isLogin"></Nav-bar>
       <Side-bar :isLogin="device.isLogin" :show="sidebar.opened && !sidebar.hidden && device.isLogin"></Side-bar>
       <app-main></app-main>
+      <Footer-bar></Footer-bar>
   </div>
 </template>
 
 <script>
 
-import { NavBar, appMain, SideBar }  from './components'
+import { NavBar, appMain, SideBar, FooterBar }  from './components'
 import NprogressContainer from'vue-nprogress/src/NprogressContainer'
 import { mapGetters, mapActions } from 'vuex'
 import api from './store/api/index'
@@ -20,6 +21,7 @@ export default {
     NprogressContainer,
     NavBar,
     SideBar,
+    FooterBar,
     appMain
   },
   beforeMount () {

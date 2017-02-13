@@ -21,7 +21,13 @@ export default {
   },
   POST: ({ commit, state }, { model, form }) => {
     return Api.post(model, form);
+  },
+  FETCH_LIST: ({ commit, state }, { model, params }) => {
+    return Api.fetchList(model, params).then( obj => {
+      commit('SET_LIST', obj)
+    })
   }
+
 }
 
 

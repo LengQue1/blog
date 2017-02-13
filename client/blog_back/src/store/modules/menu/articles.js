@@ -29,6 +29,11 @@ export default {
 			name: 'Comment',
 			path: '/comment',
 			component: lazyLoading('articles/comment')
-		}
+		},
+    {
+      name: 'ComposePostId',
+      path: '/ComposePost/:id?',
+      component: lazyLoading('articles/composeArticles')
+    }
 	]
 }

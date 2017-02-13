@@ -1,25 +1,56 @@
 <template>
     <div class="content has-text-centered">
 
+      <h1 class="is-title is-bold">{{route.name}}</h1>
 
-        <h1 class="is-title is-bold">{{route.name}}</h1>
+      <div class="box">
 
-        <p>
-            <strong>{{pkg.description}}</strong>
+        <article class="media" v-for="lis in list">
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>{{ lis.title }}</strong> <small>阅读量{{ lis.read_num }}</small> <small>更新时间: {{ lis.updatedAt}}</small>
+                <br>
+                <div v-html="lis.summary"></div>
+              </p>
+            </div>
 
-        </p>
+            <div >
+              <a href="" class="button is-primary">
+                编辑
+              </a>
+              <a href="" class="button is-danger">
+                删除
+              </a>
+            </div>
 
-        <p>Supports Vue {{pkg.dependencies.vue}} and Bulma {{pkg.dependencies.bulma}}!</p>
+          </div>
+        </article>
+
+      </div>
+
     </div>
 </template>
 
 <script>
     export default {
-        data () {
-            const route = this.$route
-            const pkg = this.$store.state.pkg
-            return {pkg, route}
-        }
+      data () {
+        const route = this.$route;
+        return {route}
+      },
+      computed : {
+          list () {
+              return this.$store.state.list;
+          }
+      },
+      created () {
+
+        this.$store.dispatch('FETCH_LIST', {
+            model: 'posts',
+            params: {}
+        })
+      }
+
     }
 </script>
 

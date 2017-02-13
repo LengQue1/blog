@@ -7,3 +7,5 @@ export const EXPAND_MENU = 'EXPAND_MENU'
 export const SWITCH_EFFECT = 'SWITCH_EFFECT'
 
 export const SET_USER = 'SET_USER'
+
+export const SET_LIST = 'SET_LIST'
