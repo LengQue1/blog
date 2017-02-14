@@ -8,7 +8,7 @@ import * as types from './mutation-types';
 import app from './modules/app'
 import menu from './modules/menu/'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
   actions,

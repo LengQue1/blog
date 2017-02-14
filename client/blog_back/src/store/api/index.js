@@ -26,3 +26,10 @@ api.post = (model, form) => {
     return response.data
   })
 };
+
+api.fetchById = (model, id, params) => {
+
+  return request.get(`${root}/${model}/${id}`, { params: params }).then(response => {
+    return response.data;
+  })
+};

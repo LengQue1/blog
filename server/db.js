@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const config = require('./config/config-default');
 const uuid = require('node-uuid');
+const moment = require('moment');
 console.log('init sequelize ...');
 
 function generateId() {
@@ -37,18 +38,18 @@ function defineModel(name, attributes) {
 	  };
 	}
   }
-  // attrs.id = {
-  //   type: ID_TYPE,
-	// primaryKey: true
-  // };
-  // attrs.createdAt = {
-  //   type: Sequelize.BIGINT,
-	// allowNull: false
-  // };
-  // attrs.updateAt = {
-  //   type: Sequelize.BIGINT,
-	// allowNull: false
-  // };
+  attrs.id = {
+    type: ID_TYPE,
+	primaryKey: true
+  };
+  attrs.createdAt = {
+    type: Sequelize.STRING(50),
+	allowNull: false
+  };
+  attrs.updateAt = {
+    type: Sequelize.STRING(50),
+	allowNull: false
+  };
   // attrs.version = {
   //   type: Sequelize.BIGINT,
 	// allowNull: false
@@ -78,40 +79,25 @@ function defineModel(name, attributes) {
   
   return sequelize.define(name, attrs, {
     tableName: name,
-	timestamps: true,
-	// hooks: {
-     //  beforeValidate: function (obj) {
-	// 	let now = Date.now();
-	// 	if (obj.isNewRecord) {
-	// 	  console.log('will create entity...' + obj);
-	// 	  if (!obj.id) {
-	// 	    obj.id = generateId();
-	// 	  }
-	// 	  sequelize.transaction((t) => {
-	// 	    return new Promise((resolve,reject) => {
-	// 		  obj.createdAt = now;
-	// 		  obj.updateAt = now;
-	// 		  obj.version = 0;
-	// 		})
-	//
-	// 	  }).then((result) => {
-	//
-	// 	  }).catch(err => console.log(err));
-	//
-	// 	} else {
-	// 	  console.log('will update entity ...');
-	// 	  sequelize.transaction((t) => {
-	// 		return new Promise((resolve,reject) => {
-	// 		  obj.updateAt = now;
-	// 		  obj.version ++;
-	// 		})
-	// 	  }).then((result) => {
-	//
-	// 	  }).catch(err => console.log(err));
-	//
-	// 	}
-	//   }
-	// }
+	timestamps: false,
+	hooks: {
+      beforeValidate: function (obj) {
+		let now = moment().format('YYYY-MM-DD HH:mm:ss');
+		if (obj.isNewRecord) {
+		  console.log('will create entity...' + obj);
+		  if (!obj.id) {
+		    obj.id = generateId();
+		  }
+		  obj.createdAt = now;
+		  obj.updateAt = now;
+		} else {
+		  console.log('will update entity ...');
+		  obj.updateAt = now;
+		  // obj.version ++;
+
+		}
+	  }
+	}
   });
 }
 

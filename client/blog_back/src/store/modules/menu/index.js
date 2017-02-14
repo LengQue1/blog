@@ -7,7 +7,6 @@ const state = {
 	items: [
     home,
 		articles,
-
 	]
 }
 

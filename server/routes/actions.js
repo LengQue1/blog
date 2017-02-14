@@ -22,8 +22,9 @@ module.exports = function generateActions (model) {
 
         create: async (ctx, next) => {
             let result;
-            console.log(ctx.request.body)
+
             try {
+
                 result = await model.create(ctx.request.body);
                 ctx.status = 201;
                 return ctx.body = result
@@ -38,6 +39,23 @@ module.exports = function generateActions (model) {
         },
 
         findById: async (ctx, next) => {
+
+            let result;
+
+            try {
+                console.log(ctx.request.query)
+                result = await model.findById(ctx.request.query.id)
+                ctx.status = 201;
+                return ctx.body = result;
+
+            } catch (e) {
+
+                return ctx.body = {
+                    status: 'fail',
+                    error: e
+                }
+
+            }
 
         },
 

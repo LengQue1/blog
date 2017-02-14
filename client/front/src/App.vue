@@ -5,8 +5,8 @@
     </div>
 </template>
 
-<style>
-
+<style lang="sass">
+    @import "~bulma";
     .main-content h1{
         display: flex;
         justify-content: center;

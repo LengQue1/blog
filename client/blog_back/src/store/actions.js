@@ -20,12 +20,17 @@ export default {
     });
   },
   POST: ({ commit, state }, { model, form }) => {
+    let {id: id} = form;
+    console.log(id);
     return Api.post(model, form);
   },
   FETCH_LIST: ({ commit, state }, { model, params }) => {
     return Api.fetchList(model, params).then( obj => {
       commit('SET_LIST', obj)
     })
+  },
+  FETCH_BY_ID: ({ commit, state }, { model, id, params }) => {
+    return Api.fetchById(model, id, params);
   }
 
 }

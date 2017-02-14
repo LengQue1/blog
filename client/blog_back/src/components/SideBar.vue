@@ -103,7 +103,12 @@
             },
 
             generatePath (item, subItem) {
-                return `${subItem.path}`
+              let subItemPath = subItem.path;
+              let idendindex = subItemPath.indexOf(':id?');
+              if(idendindex !== -1) {
+                subItemPath = subItemPath.replace('/:id?', '');
+              }
+              return `${item.path}/${subItemPath}`
             },
 
             findParentFromMenu (route) {
@@ -120,14 +125,14 @@
                     }
                 }
             }
-        },
-
-        watch: {
-            $route (route) {
-                this.isReady = true
-                this.shouldExpandMatchItem(route)
-            }
         }
+
+//        watch: {
+//            $route (route) {
+//                this.isReady = true
+//                this.shouldExpandMatchItem(route)
+//            }
+//        }
 
     }
 </script>

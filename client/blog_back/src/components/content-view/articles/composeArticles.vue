@@ -23,12 +23,14 @@
 
     import marked from '../marked.vue'
     import markedown from 'marked'
+    import moment from 'moment'
 
     export default {
         data () {
             const route = this.$route;
+            let id = typeof this.$route.params.id === 'undefined' ? -1 : this.$route.params.id;
             let form = {};
-            return {route, form }
+            return {route, form, id }
         },
 
         components: { marked },
@@ -42,7 +44,6 @@
             },
             onSubmit () {
                 this.validate();
-                console.log(this.form)
                 this.$store.dispatch('POST', {
                     model: 'posts',
                     form: this.form
@@ -57,9 +58,29 @@
                         type: 'success',
                         message: '文章提交成功!'
                       });
-                      this.$router.push({ path: '/allPost'})
+                      this.$router.push({ path: '/post/allPost'})
                     }
 
+                })
+            }
+        },
+
+        created() {
+            if (this.id !== -1) {
+                console.log(this.id)
+                this.$store.dispatch('FETCH_BY_ID',{
+                  id: this.id,
+                  model: 'posts',
+                  params: {
+                      id: this.id
+                  }
+                }).then( post => {
+//                    this.form = post;
+                    this.form.title = post.title;
+                    this.form.content = post.content;
+                    this.form.category = post.category;
+                    this.form.read_num = post.read_num;
+                    this.form.markdownContent = post.markdownContent;
                 })
             }
         }

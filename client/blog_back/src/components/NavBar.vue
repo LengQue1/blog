@@ -18,7 +18,7 @@
                     </figure>
                     Welcome
                     {{ user.username ? user.username : '未登录'  }}
-                    <a href="#/admin/logout" class="nav-item is-tab">Logout</a>
+                    <a href="admin/logout" class="nav-item is-tab">Logout</a>
                 </div>
             </div>
         </div>
