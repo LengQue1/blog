@@ -21,7 +21,11 @@ module.exports = (app, router, model, prefix = "") => {
   router.post(prefix + ("/" + model.name), permission, actions.create);
   router.post(prefix + ("/" + model.name + "/:id"), permission, actions.updateById);
 
+  router.put(prefix + ("/" + model.name ), permission, actions.create);
+  router.put(prefix + ("/" + model.name + "/:id"), permission, actions.replaceId);
+
   router.del(prefix + ("/" + model.name + "/:id"), permission, actions.deleteById);
+  router.patch(prefix + ("/" + model.name + "/:id"), permission, actions.updateById);
 
   app.use(router.routes());
 };

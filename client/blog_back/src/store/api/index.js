@@ -28,8 +28,19 @@ api.post = (model, form) => {
 };
 
 api.fetchById = (model, id, params) => {
-
   return request.get(`${root}/${model}/${id}`, { params: params }).then(response => {
+    return response.data;
+  })
+};
+
+api.patchById = (model, id, form) => {
+  return request.patch(`${root}/${model}/${id}`, form).then(response => {
+    return response.data;
+  })
+};
+
+api.deleteById = (model, id) => {
+  return request.delete(`${root}/${model}/${id}`).then(response => {
     return response.data;
   })
 };

@@ -30,8 +30,8 @@ const commonConfig = Object.assign({}, base, {
 });
 
 if (process.env.NODE_ENV !== 'production'){
-  
-  // vueConfig.loaders = utils.cssLoaders();
+
+  vueConfig.loaders = utils.cssLoaders();
   
   // commonConfig.plugins.push(
   //   // this is needed in webpack 2 for minifying CSS

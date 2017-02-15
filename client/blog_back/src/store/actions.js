@@ -21,8 +21,11 @@ export default {
   },
   POST: ({ commit, state }, { model, form }) => {
     let {id: id} = form;
-    console.log(id);
-    return Api.post(model, form);
+    if (id !== undefined ) {
+      return Api.patchById(model, id, form);
+    } else {
+      return Api.post(model, form);
+    }
   },
   FETCH_LIST: ({ commit, state }, { model, params }) => {
     return Api.fetchList(model, params).then( obj => {
@@ -31,7 +34,13 @@ export default {
   },
   FETCH_BY_ID: ({ commit, state }, { model, id, params }) => {
     return Api.fetchById(model, id, params);
-  }
+  },
+  PATCH_BY_ID: ({ commit, state }, { model, id, params}) => {
+    return Api.patchById(model, id, params);
+  },
+  DELETE_BY_ID: ({ commit, state }, { model, id}) => {
+    return Api.deleteById(model, id);
+  },
 
 }
 

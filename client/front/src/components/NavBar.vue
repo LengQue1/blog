@@ -1,0 +1,49 @@
+<template>
+    <div>
+        <nav class="nav">
+            <div class="nav-left">
+                <a class="nav-item">
+                    <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo">
+                </a>
+            </div>
+
+            <div class="nav-center">
+                <a class="nav-item">
+                  <span class="icon">
+                    <i class="fa fa-github"></i>
+                  </span>
+                </a>
+                <a class="nav-item is-tab is-active">
+                    主页
+                </a>
+                <a class="nav-item is-tab">
+                    归档
+                </a>
+            </div>
+
+            <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
+            <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
+            <span class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+
+            <div class="nav-right nav-menu">
+
+            </div>
+        </nav>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: 'NavBar',
+    }
+</script>
+
+<style lang="scss" scoped>
+    .nav{
+        box-shadow: 1px 1px 4px rgba(0,0,0,.2) ;
+    }
+</style>

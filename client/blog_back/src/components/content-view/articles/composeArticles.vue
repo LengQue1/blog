@@ -75,13 +75,8 @@
                       id: this.id
                   }
                 }).then( post => {
-//                    this.form = post;
-                    this.form.title = post.title;
-                    this.form.content = post.content;
-                    this.form.category = post.category;
-                    this.form.read_num = post.read_num;
-                    this.form.markdownContent = post.markdownContent;
-                })
+                    this.form = post;
+                });
             }
         }
     }
