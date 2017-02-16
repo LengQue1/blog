@@ -6,5 +6,6 @@ module.exports = db.defineModel('posts',{
     content: db.TEXT,
     markdownContent: db.TEXT,
     read_num: db.INTEGER(10),
-    summary: db.TEXT
+    summary: db.TEXT,
+    pathName: db.STRING(255)
 });

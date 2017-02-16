@@ -13,12 +13,8 @@
                     <i class="fa fa-github"></i>
                   </span>
                 </a>
-                <a class="nav-item is-tab is-active">
-                    主页
-                </a>
-                <a class="nav-item is-tab">
-                    归档
-                </a>
+                <router-link to="/" class="nav-item is-tab is-active">主页</router-link>
+                <router-link to="/archive" class="nav-item is-tab">归档</router-link>
             </div>
 
             <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
@@ -39,6 +35,7 @@
 <script>
     export default {
         name: 'NavBar',
+
     }
 </script>
 

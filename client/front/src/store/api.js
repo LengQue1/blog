@@ -6,6 +6,8 @@ const host = typeof location === 'undefined'
    : 'http://localhost:8080/proxyPrefix'
    : '/proxyPrefix';
 
+const blogAPI = `${host}/api/posts`
+
 const store = {};
 
 store.fetchTest = () => {
@@ -15,6 +17,12 @@ store.fetchTest = () => {
 	 }, (err) => {
 	   console.log(err);
 	 })
-}
+};
+
+store.fetchPost = (params) => {
+	return request.get(`${blogAPI}?params= ${JSON.stringify(params)}`).then((response)=> {
+		return response.body
+	}, (err) => console.log(err))
+};
 
 export default store;

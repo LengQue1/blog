@@ -5,6 +5,10 @@
         <p class="control">
           <input class="input" v-model="form.title" type="text" placeholder="Text Title">
         </p>
+        <label class="label" >PathName</label>
+        <p class="control">
+          <input class="input" v-model="form.pathName" type="text" placeholder="添加前端路径后缀 Title">
+        </p>
         <label class="label">Message</label>
 
          <div class="markedContainer">

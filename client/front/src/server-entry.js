@@ -11,10 +11,15 @@ export default context => {
   if (!matchedComponents.length) {
     return Promise.reject({ code: '404' })
   }
+  let current =  router.history.current;
+  context.path = current.path;
+  context.query = current.query;
+  context.params = current.params;
+  context.url = current.fullPath;
 
   return Promise.all(matchedComponents.map(component => {
     if (component.preFetch) {
-      return component.preFetch(store)
+      return component.preFetch(store, context);
     }
   })).then(res => {
 

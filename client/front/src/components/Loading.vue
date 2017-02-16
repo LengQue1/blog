@@ -1,8 +1,9 @@
 <template>
     <div>
         <div v-if="show" class="loading-bar loading-bar--to_right" :class="{ 'loading-bar--full': full}"
-        :style="styling()"></div>
-        <div class="loading-bar-glow"></div>
+        :style="styling()">
+            <div class="loading-bar-glow"></div>
+        </div>
     </div>
 </template>
 
@@ -12,7 +13,7 @@
         props: {
             progress: {
                 type: Number,
-                defalut: 0
+                default: 0
             },
             onProgressDone: {
                 type: Function,
@@ -30,37 +31,36 @@
         watch: {
             progress (val, old) {
                 if (old !== val) {
-                    this.width = val;
+                    this.width = val
                     this.$nextTick(() => {
-                        this.isFull
+                        this.isFull()
                     })
                 }
             }
         },
         methods: {
             isFull () {
-                let isFull = this.width === 100;
+                let isFull = this.width === 100
                 if (isFull) {
-                    this.wait = true;
+                    this.wait = true
                     setTimeout(() => {
-                        this.full = true;
+                        this.full = true
                         setTimeout(() => {
-                            this.show = false;
-                            this.width = 0;
-                            this.wait= false;
+                            this.show = false
+                            this.width = 0
+                            this.wait = false
                             this.$nextTick(() => {
-                                this.full = '';
-                                this.show = true;
+                                this.full = ''
+                                this.show = true
                                 this.onProgressDone()
-                            });
-                        }, 400);
-
-                    }, 400);
+                            })
+                        }, 400)
+                    }, 400)
                 }
             },
             styling () {
                 if (!this.wait) {
-                    return { width: `${this.width}%`}
+                    return { width: `${this.width}%` }
                 } else {
                     return { width: '100%' }
                 }

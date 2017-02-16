@@ -15,8 +15,14 @@ module.exports = (app, router, model, prefix = "") => {
 
   const actions = generateActions(model);
 
-  router.get(prefix + ("/" + model.name), permission, actions.findAll);
-  router.get(prefix + ("/" + model.name + "/:id"), permission, actions.findById);
+    if (model.name !== 'user') {
+        router.get(prefix + ("/" + model.name), actions.findAll);
+        router.get(prefix + ("/" + model.name + "/:id"), actions.findById);
+    } else {
+        router.get(prefix + ("/" + model.name), permission, actions.findAll);
+        router.get(prefix + ("/" + model.name + "/:id"), permission, actions.findById);
+    }
+
 
   router.post(prefix + ("/" + model.name), permission, actions.create);
   router.post(prefix + ("/" + model.name + "/:id"), permission, actions.updateById);

@@ -4,6 +4,7 @@ Vue.use(Router);
 
 import NavBar from '../components/NavBar.vue';
 import Main from  '../components/Main.vue';
+import Post from '../components/Post.vue';
 
 export default new Router({
   mode: 'history',
@@ -17,11 +18,20 @@ export default new Router({
 		},
 	},
 	{
-        name: 'file',
-        path: '/file',
+        name: 'archive',
+        path: '/archive',
         components:{
+            NavBar: NavBar,
             default: Main
         }
-	}
+	},
+    {
+        name: 'post',
+        path: '/post/:pathName',
+        components:{
+            NavBar: NavBar,
+            default: Post,
+        }
+    }
   ]
 });
