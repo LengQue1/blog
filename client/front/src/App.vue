@@ -1,15 +1,22 @@
 <template>
     <div id="app" class="main-content rounded">
-        <Loading-bar
-            :on-progress-done="onProgressDone"
-            :progress="progress">
-        </Loading-bar>
-        <keep-alive>
-            <router-view name="NavBar"></router-view>
-        </keep-alive>
-        <keep-alive>
-            <router-view></router-view>
-        </keep-alive>
+
+            <Loading-bar
+                :on-progress-done="onProgressDone"
+                :progress="progress">
+            </Loading-bar>
+            <keep-alive>
+                <router-view name="NavBar"></router-view>
+            </keep-alive>
+        <transition
+                mode="out-in"
+                enter-active-class="fadeIn"
+                leave-active-class="fadeOut"
+                appear>
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
+        </transition>
 
     </div>
 </template>

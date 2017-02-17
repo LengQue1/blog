@@ -3,7 +3,7 @@
         <nav class="nav">
             <div class="nav-left">
                 <a class="nav-item">
-                    <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo">
+                    <h1>lengQueBlog</h1>
                 </a>
             </div>
 
@@ -13,8 +13,8 @@
                     <i class="fa fa-github"></i>
                   </span>
                 </a>
-                <router-link to="/" class="nav-item is-tab is-active">主页</router-link>
-                <router-link to="/archive" class="nav-item is-tab">归档</router-link>
+                <router-link to="/" class="nav-item is-tab " :class="{ 'is-active': isActive}">主页</router-link>
+                <router-link to="/archive" class="nav-item is-tab" :class="{'is-active': isActive}">归档</router-link>
             </div>
 
             <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
@@ -35,7 +35,15 @@
 <script>
     export default {
         name: 'NavBar',
+        computed: {
+            isActive () {
+                console.log(this.$route.fullPath)
+                return true
+            },
+            currentPath () {
 
+            }
+        }
     }
 </script>
 

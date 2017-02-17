@@ -12,6 +12,7 @@ export default new Vuex.Store({
     items: [],
     blog: {},
     progress: 0,
+    archive: {}
 
   },
 
@@ -27,8 +28,12 @@ export default new Vuex.Store({
     SET_LOAD: ((state, isTrue ) => {
       state.load = isTrue;
     }),
-    SET_BLOG: (state, blog) => {
-      state.blog = blog;
+    SET_BLOG: (state, { blog }) => {
+      Vue.set(state, 'blog', blog);
+    },
+
+    SET_ARCHIVE: (state, { sortedItem }) => {
+      state.archive = sortedItem;
     }
 
   },
@@ -64,18 +69,44 @@ export default new Vuex.Store({
     },
     FETCH_BLOG: ({ commit, state, dispatch }, { params, callback }) => {
       return api.fetchPost(params).then( result => {
-        console.log(result);
         let blog = result[0];
-        commit('SET_BLOG', blog);
+        commit('SET_BLOG',{ blog });
           callback && callback();
         return Promise.resolve();
       })
+    },
+
+    FETCH_ARCHIVE: ({ commit, state, dispatch }, { params, callback }) => {
+      return api.fetchPost(params).then(items => {
+        let sortedItem = items.reduce((prev, curr) => {
+          let year = curr.createdAt.slice(0, 4);
+          let time = curr.createdAt.slice(0, 4);
+            console.log(year);
+            console.log(time);
+            if (typeof prev[time] === 'undefined') {
+                prev[time] = [curr]
+            } else {
+                prev[time].push(curr)
+            }
+            return prev
+
+        }, {});
+        commit('SET_ARCHIVE', { sortedItem });
+        callback && callback();
+      })
     }
+
+
+
   },
   getters: {
       items (state, getters) {
           const { items } = state;
           return items
+      },
+      archive (state, getters) {
+        const { archive } = state;
+        return archive;
       }
   }
 });

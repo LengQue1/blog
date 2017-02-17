@@ -5,6 +5,7 @@ Vue.use(Router);
 import NavBar from '../components/NavBar.vue';
 import Main from  '../components/Main.vue';
 import Post from '../components/Post.vue';
+import Archive from '../components/archive.vue';
 
 export default new Router({
   mode: 'history',
@@ -22,7 +23,7 @@ export default new Router({
         path: '/archive',
         components:{
             NavBar: NavBar,
-            default: Main
+            default: Archive
         }
 	},
     {

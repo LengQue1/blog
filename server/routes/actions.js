@@ -4,7 +4,7 @@ module.exports = function generateActions (model) {
         findAll: async (ctx, next) => {
 
             let query = {};
-            console.log(ctx.request.query)
+
             if (ctx.request.query.attributes) {
                 query = {
                     attributes: JSON.parse(ctx.request.query.attributes)
@@ -15,6 +15,12 @@ module.exports = function generateActions (model) {
                     where: JSON.parse(ctx.request.query.where)
                 }
             }
+
+            if (ctx.request.query.params) {
+                query = JSON.parse(ctx.request.query.params);
+            }
+
+
             let result = await model.findAll(query);
 
             return ctx.body = result;

@@ -30,7 +30,7 @@ const commonConfig = Object.assign({}, base, {
 });
 
 if (process.env.NODE_ENV !== 'production'){
-
+    console.log('我是开发环境')
   vueConfig.loaders = utils.cssLoaders();
   
   // commonConfig.plugins.push(
@@ -40,6 +40,7 @@ if (process.env.NODE_ENV !== 'production'){
   //   })
   // )
 } else {
+	console.log('我是线上环境')
   // // 编译 .vue 文件时使用的 loader
   vueConfig.loaders = utils.cssLoaders({
 	extract: true,
