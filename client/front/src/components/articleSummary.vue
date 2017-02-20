@@ -18,7 +18,7 @@
     }
 </script>
 
-<style lang="scss" scopde>
+<style lang="sass" scoped>
     .posts{
         margin: 30px 0;
         padding: 0 2rem;

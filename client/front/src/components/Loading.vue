@@ -70,7 +70,7 @@
 </script>
 
 
-<style scoped>
+<style lang="sass" scoped>
     .loading-bar{
         transition: all .4s ease;
         -moz-transition: all .4s ease;

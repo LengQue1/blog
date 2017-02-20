@@ -36,6 +36,6 @@
     }
 </script>
 
-<style lang="scss" scopde>
+<style lang="sass" scoped>
 
 </style>

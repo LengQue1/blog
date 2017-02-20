@@ -9,7 +9,7 @@
     }
 </script>
 
-<style lang="scss" scopde>
+<style lang="sass" scoped>
     .loaders {
         color: #00d1b2;
         font-size: 70px;

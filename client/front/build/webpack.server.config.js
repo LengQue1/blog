@@ -18,14 +18,14 @@ module.exports = Object.assign({}, base, {
 	 new webpack.LoaderOptionsPlugin({
 	   minimize: true
 	 }),
-	 new webpack.optimize.UglifyJsPlugin({
-	   compress: {
-	     warnings: false
-	   },
-	   output: {
-	     comments: false
-	   },
-	   sourceMap: false
-	 })
+	 // new webpack.optimize.UglifyJsPlugin({
+	 //   compress: {
+	 //     warnings: false
+	 //   },
+	 //   output: {
+	 //     comments: false
+	 //   },
+	 //   sourceMap: false
+	 // })
   ]
 })

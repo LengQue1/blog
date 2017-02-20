@@ -40,7 +40,9 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="sass">
+    @import './assets/css/article.css';
+    @import './assets/css/highlight.css';
     @import "~bulma";
     $fa-font-path: '~font-awesome/fonts/';
     @import '~font-awesome/scss/font-awesome';

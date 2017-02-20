@@ -50,7 +50,7 @@
     }
 </script>
 
-<style lang="scss" scopde>
+<style lang="sass" scoped>
     .postContent{
         padding: 2.5rem;
     }
