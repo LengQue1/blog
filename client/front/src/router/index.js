@@ -6,6 +6,7 @@ import NavBar from '../components/NavBar.vue';
 import Main from  '../components/Main.vue';
 import Post from '../components/Post.vue';
 import Archive from '../components/archive.vue';
+import NotFoundComponent from '../components/NotFound.vue'
 
 export default new Router({
   mode: 'history',
@@ -32,6 +33,14 @@ export default new Router({
         components:{
             NavBar: NavBar,
             default: Post,
+        }
+    },
+    {
+        name: 'NotFound',
+        path: '*',
+        components:{
+            default: NotFoundComponent,
+            NavBar: NavBar
         }
     }
   ]

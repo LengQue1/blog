@@ -5,7 +5,7 @@ var config = {
   database: 'myblog',
 
   username: 'root',
-  password: '123',
+  password: '',
   host: 'localhost',
   port: 3306,
 

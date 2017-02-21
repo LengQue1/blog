@@ -6,15 +6,18 @@ app.$mount('#app');
 
 
 router.beforeEach((to, from, next) => {
-    let loadingPromise = store.dispatch('START_LOADING')
+    let loadingPromise = store.dispatch('START_LOADING');
     let endLoadingCallback = () => {
         return loadingPromise.then(interval => {
             clearInterval(interval);
             store.dispatch('SET_LOAD', false);
             store.dispatch('SET_PROGRESS', 100);
+            store.dispatch('SET_PATH', to.fullPath);
+            store.dispatch('SET_TOGGLE', false);
             next()
         })
     };
+
 
     if (to.matched.length !== 0) {
         let component = to.matched[0].components.default

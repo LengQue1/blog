@@ -17,7 +17,11 @@
     mounted() {
       this.mde = new simplemde({
           element: this.$refs.area,
-          autofocus: true
+          autofocus: true,
+      blockStyles: {
+            bold: '__',
+
+      }
       });
       this.mde.value(this.value)
       var self = this

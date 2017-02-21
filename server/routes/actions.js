@@ -18,11 +18,27 @@ module.exports = function generateActions (model) {
 
             if (ctx.request.query.params) {
                 query = JSON.parse(ctx.request.query.params);
+
+                try {
+
+                    if (query.where.pathName != undefined) {
+                        let results = await model.findAll(query);
+                        for (let result of results) {
+                            result.read_num ++;
+                            await result.save();
+                        }
+                        ctx.status = 200;
+                        return ctx.body = results;
+                    }
+
+                } catch (e) {
+
+                }
+
             }
 
-
             let result = await model.findAll(query);
-
+            ctx.status = 200;
             return ctx.body = result;
         },
 

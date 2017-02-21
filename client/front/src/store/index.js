@@ -12,8 +12,9 @@ export default new Vuex.Store({
     items: [],
     blog: {},
     progress: 0,
-    archive: {}
-
+    archive: {},
+    curPath: '',
+    toggle: false
   },
 
 
@@ -34,6 +35,14 @@ export default new Vuex.Store({
 
     SET_ARCHIVE: (state, { sortedItem }) => {
       state.archive = sortedItem;
+    },
+
+    SET_PATH_VALUE: (state, path) => {
+      state.curPath = path
+    },
+
+    SET_TOGGLE_VALUE: (state, toggle) => {
+        state.toggle = toggle
     }
 
   },
@@ -47,6 +56,12 @@ export default new Vuex.Store({
     },
     SET_LOAD: ({ commit, state }, isLoad) => {
       commit('SET_LOAD', isLoad);
+    },
+    SET_PATH: ({ commit, state, dispatch}, path) => {
+      commit('SET_PATH_VALUE', path);
+    },
+    SET_TOGGLE: ({ commit, state, dispatch}, toggle) => {
+        commit('SET_TOGGLE_VALUE', toggle);
     },
     START_LOADING:({ commit, state, dispatch }) =>{
       dispatch('SET_PROGRESS', 30);
@@ -81,8 +96,6 @@ export default new Vuex.Store({
         let sortedItem = items.reduce((prev, curr) => {
           let year = curr.createdAt.slice(0, 4);
           let time = curr.createdAt.slice(0, 4);
-            console.log(year);
-            console.log(time);
             if (typeof prev[time] === 'undefined') {
                 prev[time] = [curr]
             } else {

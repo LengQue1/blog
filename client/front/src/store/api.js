@@ -20,7 +20,6 @@ store.fetchTest = () => {
 };
 
 store.fetchPost = (params) => {
-
 	return request.get(`${blogAPI}?params= ${JSON.stringify(params)}`).then((response)=> {
 		return response.body
 	}, (err) => console.log(err))
