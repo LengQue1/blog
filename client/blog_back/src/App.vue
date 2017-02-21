@@ -75,14 +75,12 @@ export default {
 
     $fa-font-path: '~font-awesome/fonts/';
     @import '~font-awesome/scss/font-awesome';
-
     .nprogress-container {
         position: fixed !important;
         width: 100%;
         height: 50px;
         z-index: 2048;
         pointer-events: none;
-
         #nprogress {
             $color: #48e79a;
 
