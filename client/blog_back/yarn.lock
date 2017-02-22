@@ -2479,9 +2479,9 @@ he@1.1.x, he@^1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/he/download/he-1.1.0.tgz#29319d49beec13a9b1f3c4f9b2a6dde4859bb2a7"
 
-highlight@^0.2.4:
-  version "0.2.4"
-  resolved "http://registry.npm.taobao.org/highlight/download/highlight-0.2.4.tgz#8ac02875b03f5935e0675852b76cfe1fd58e0dff"
+highlight.js@^9.9.0:
+  version "9.9.0"
+  resolved "http://registry.npm.taobao.org/highlight.js/download/highlight.js-9.9.0.tgz#b9995dcfdc2773e307a34f0460d92b9a474782c0"
 
 hoek@2.x.x:
   version "2.16.3"

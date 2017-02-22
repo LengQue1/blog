@@ -12,7 +12,7 @@
         <label class="label">Message</label>
 
          <div class="markedContainer">
-           <marked v-model="form.markdownContent"></marked>
+           <markedEdit v-model="form.markdownContent"></markedEdit>
          </div>
 
         <div class="control is-grouped">
@@ -25,7 +25,7 @@
 
 <script>
 
-    import marked from '../marked.vue'
+    import markedEdit from '../marked.vue'
     import markedown from 'marked'
     import moment from 'moment'
 
@@ -37,10 +37,13 @@
             return {route, form, id }
         },
 
-        components: { marked },
-
+        components: { markedEdit },
+        mounted() {
+          console.log(this.form.markdownContent = '')
+        },
         methods: {
             validate () {
+                console.log(this.form);
               this.form.summary = markedown(this.form.markdownContent.split('<!--more-->')[0]);
               this.form.content = markedown(this.form.markdownContent.replace(/<!--more-->/g, ''));
               this.form.category = '未分类';
