@@ -46,13 +46,20 @@
     @import "~bulma";
     $fa-font-path: '~font-awesome/fonts/';
     @import '~font-awesome/scss/font-awesome';
-    .main-content h1{
-        display: flex;
-        justify-content: center;
-    }
+
     .main-content main{
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+    @media screen  and (min-width: 769px){
+        .nav-left {
+            justify-content:center;
+        }
+    }
+    @media screen and (min-width: 1192px) {
+        .container {
+            max-width: 990px;
+        }
     }
 </style>

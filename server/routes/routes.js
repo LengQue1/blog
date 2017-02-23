@@ -2,7 +2,7 @@ const { login, logout, permission } = require('./admin');
 const generateActions = require('./actions');
 let registerAdmin = false;
 
-module.exports = (app, router, model, prefix = "") => {
+module.exports = (app, router, model, prefix = "", sequelize) => {
 
   if (!registerAdmin) {
       router.get('/api/test', (ctx, next) => {
@@ -13,7 +13,7 @@ module.exports = (app, router, model, prefix = "") => {
       registerAdmin = true;
   }
 
-  const actions = generateActions(model);
+  const actions = generateActions(model, sequelize);
 
     if (model.name !== 'user') {
         router.get(prefix + ("/" + model.name), actions.findAll);

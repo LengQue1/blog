@@ -18,7 +18,7 @@
                     </figure>
                     Welcome
                     {{ user.username ? user.username : '未登录'  }}
-                  <router-link to="admin/logout" class="nav-item is-tab">Logout</router-link>
+                  <router-link to="/admin/logout" class="nav-item is-tab">Logout</router-link>
                 </div>
             </div>
         </div>

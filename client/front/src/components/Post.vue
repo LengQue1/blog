@@ -1,6 +1,6 @@
 <template>
    <article>
-       <div class="postContent">
+       <div class="postContent container">
            <header class="post-header">
                <h1 class="post-title title" >
                    {{ article.title }}

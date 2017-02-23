@@ -45,7 +45,7 @@ if (process.env.NODE_ENV !== 'production'){
     // vueConfig.loaders = utils.cssLoaders({
     //     extract: true,
     // });
-
+    console.log('执行了几次')
     commonConfig.plugins.push(
         new ExtractTextPlugin('styles.[hash].css'),
         // this is needed in webpack 2 for minifying CSS

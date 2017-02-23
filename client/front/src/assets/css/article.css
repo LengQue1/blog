@@ -30,7 +30,7 @@ article h1.title {
 
 article h1.title,
 article h1.title a {
-    color: #333;
+    /*color: #333;*/
     display: inline-block;
     position: relative;
     border-bottom: none;
@@ -108,7 +108,8 @@ article code {
 }
 
 article pre {
-    border-left: 5px solid #ccc;
+    margin: 15px 0;
+    border-left: 5px solid #75aba3;
     color: #5d6a6a;
     font-family: "Consolas", "Liberation Mono", Courier, monospace;
     font-size: 14px;
@@ -118,7 +119,9 @@ article pre {
     position: relative;
     white-space: pre-wrap;
     word-break: break-all;
-    word-wrap: break-word
+    word-wrap: break-word;
+    background: #333;
+    color: white;
 }
 
 article img {
@@ -126,7 +129,7 @@ article img {
     display: block;
     margin: 10px 0 5px;
     max-width: 100%;
-    padding: 0
+    padding: 0.5em;
 }
 
 article table {
@@ -147,7 +150,8 @@ article pre code {
     font-size: 100%;
     margin: 0;
     padding: 0;
-    position: relative
+    position: relative;
+
 }
 
 article table th,
@@ -193,22 +197,28 @@ article .entry-content {
     word-wrap: break-word
 }
 
-article .entry-content p,
-article .entry-content blockquote,
-article .entry-content ul,
-article .entry-content ol,
-article .entry-content dl,
-article .entry-content table,
-article .entry-content iframe,
-article .entry-content h1,
-article .entry-content h2,
-article .entry-content h3,
-article .entry-content h4,
-article .entry-content h5,
-article .entry-content h6,
-article .entry-content p,
-article .entry-content pre {
+article p,
+article blockquote,
+article ul,
+article ol,
+article dl,
+article table,
+article iframe,
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6,
+article p,
+article pre {
     margin-top: 15px
+}
+
+article h1 {
+    font-size: 150%;
+    margin: 1rem 0;
+
 }
 
 article pre b.name {

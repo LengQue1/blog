@@ -26,7 +26,7 @@ app.use(bodyParser());
 
 // 使用中间件位路由 add router middleware;
 Object.keys(model).forEach(value => {
-    apiRouter(app, router, model[value], '/api');
+    apiRouter(app, router, model[value], '/api', model.sequelize);
 });
 
 

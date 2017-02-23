@@ -3,8 +3,13 @@
     <div class="editor-toolbar">
       <tool-items v-for="(toolItem, index) in toolbarItems" @select="handleSelect"  :class="toolItem.className" :title="toolItem.title" :tabIndex="index" ></tool-items>
     </div>
-    <div class="md-editor">
-         <textarea ref="markdown" :value="value" @input="handleInput"></textarea>
+    <div class="md-editor" :class="{
+        'edit': mode=== 'edit',
+        'preview': mode=== 'preview',
+        'split': mode=== 'split',
+    }">
+         <textarea ref="markdown" :value="value"  @input="handleInput"></textarea>
+          <div class="markdown-preview" v-html="compiledMarkdown"></div>
     </div>
   </div>
 </template>
@@ -13,6 +18,7 @@
 
   import marked from 'marked';
   import highgihtjs from 'highlight.js';
+  require('highlight.js/styles/agate.css');
   import _ from 'lodash';
 
   marked.setOptions({
@@ -39,6 +45,7 @@
               {title: 'Insert Image', 'className': 'fa fa-picture-o'},
               {title: 'Toggle Preview', 'className': 'fa fa-eye'},
               {title: 'Toggle Split', 'className': 'fa fa-columns'},
+              {title: 'Toggle Edit', 'className': 'fa fa-pencil'},
               {title: 'Summary', 'className': 'fa fa-info-circle'},
               {title: 'code', 'className': 'fa fa-code'},
             ],
@@ -79,9 +86,10 @@
 
        }
     },
-
     computed: {
-
+      compiledMarkdown () {
+        return marked(this.value.replace(/<!--more-->/g, ''))
+      }
     },
     methods: {
       handleSelect (key) {
@@ -111,21 +119,23 @@
             this._imgLink();
             break;
           case 8:
-            this._preview();
+            this.mode = 'preview';
             break;
           case 9:
-            this._split();
+            this.mode = 'split';
             break;
           case 10:
-            this._summary();
+            this.mode = 'edit';
             break;
           case 11:
+            this._summary();
+            break;
+          case 12:
             this._code();
             break;
         }
       },
       handleInput: _.debounce(function (e) {
-          console.log(this.value);
         let value = e.target.value;
         this.$emit('input', value);
       }, 300),
@@ -134,126 +144,54 @@
         const start = textControl.selectionStart;
         const end = textControl.selectionEnd;
         const origin= this.value;
-        console.log(textControl);
-        console.log(start + ' ,' + end + ',' + origin);
         if (start !== end) {
             const exist = origin.slice(start, end);
             text = text.slice(0, preStart) + exist + text.slice(preEnd);
-            preEnd = preStart + exist.length;
-
-            let input =  origin.slice(0, start) + text + origin.slice(end);
-
-            this.$emit('input', input);
+//            preEnd = preStart + exist.length;
+        }
+        if (/^\[\]/.test(text)) {
+          textControl.focus();
+          textControl.setSelectionRange(preEnd);
         }
 
+        let input =  origin.slice(0, start) + text + origin.slice(end);
+        this.$emit('input', input);
       },
       _boldText () {
         this._preInputText('**加粗字体**', 2, 6);
       },
       _headerText() {
-//        this._preInputText('_斜体文字_', 1, 5);
+        this._preInputText('# H1', 2, 4);
       },
       _italicText() {
-        this._preInputText('_斜体文字_', 1, 5);
+        this._preInputText('*斜体文字*', 1, 5);
       },
       _quoteText() {
-        this._preInputText('> 引用', 3, 5);
+        this._preInputText('> 引用', 2, 5);
       },
       _genericList() {
-
+        this._preInputText('* 无序列表', 2, 6);
       },
       _numberedList() {
-
+        this._preInputText('*无序列表', 1, 5);
       },
       _link() {
-
+        this._preInputText('[](http://)', 1, 1)
       },
       _imgLink() {
-
-      },
-      _preview() {
-
-      },
-      _split() {
-
+          this._preInputText('![](http://)', 4, 4)
       },
       _summary() {
-
+        this._preInputText('<!--more-->', 12, 12)
       },
       _code() {
         this._preInputText('```\ncode block\n```', 5, 15)
       }
 
 
-
-
-
-
     }
   }
 
-
-
-//  require('simplemde/dist/simplemde.min.css');
-//  import simplemde from 'simplemde'
-//  import moment from 'moment';
-//  import highlightJs from 'highlight.js';
-
-//  export default {
-//    props: ['value'],
-//    data() {
-//      let form = {}
-//      return { form }
-//    },
-//    mounted() {
-//      this.mde = new simplemde({
-//        element: this.$refs.area,
-//        autofocus: true,
-//        renderingConfig : {
-//          singleLineBreaks: false,
-//          codeSyntaxHighlighting: true
-//        },
-//        toolbar: [
-//          'bold',
-//          'italic',
-//          'strikethrough',
-//          'heading',
-//          'heading-smaller',
-//          'heading-bigger',
-//          'heading-1',
-//          'heading-2',
-//          'heading-3',
-//          'quote',
-//          'unordered-list',
-//          'ordered-list',
-//          'clean-block',
-//          'link',
-//          'image',
-//          'table',
-//          'horizontal-rule',
-//          'preview',
-//          'side-by-side',
-//          'fullscreen',
-//          'guide',
-//          'code'
-//        ]
-//      });
-//
-//      this.mde.value(this.value);
-//      this.mde.codemirror.on('change', () => {
-//        this.$emit('input', this.mde.value());
-//      })
-//    },
-//    watch: {
-//      // this would update on every keystroke, so maybe you have to remove it.
-//      // component should work nonetheless, but if an external source changed the value, it would not reflect in this component.
-//      value(newVal) { this.mde.value(newVal) }
-//    },
-//    beforeDestroy() {
-//      this.mde.toTextArea();  // clean up when component gets destroyed.
-//    }
-//
-//  }
 </script>
 
 <style lang="scss" scoped>
@@ -313,6 +251,7 @@
     border-color: #95a5a6;
   }
   .md-editor {
+    overflow: hidden;
     position: relative;
     opacity: .6;
     -webkit-user-select: none;
@@ -328,6 +267,31 @@
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
   }
+  .md-editor .markdown-preview {
+    box-sizing: border-box;
+    position: absolute;
+    word-wrap: break-word;
+    word-break: normal;
+    width: 50%;
+    height: 100%;
+    left: 100%;
+    top: 0;
+    background-color: #F9FAFC;
+    border-left: 1px solid #ccc;
+    overflow: auto;
+    transition: left .3s, width .3s;
+    padding: 15px 15px 0;
+  }
+  .md-editor.split .markdown-preview {
+    left: 50%;
+    width: 50%;
+  }
+  .md-editor.preview .markdown-preview {
+    left: 0;
+    width: 100%;
+    border-left-style: none;
+  }
+
   .md-panel .md-editor textarea{
     box-sizing: border-box;
     display: block;
@@ -338,6 +302,9 @@
     min-height: 500px;
     width: 100%;
     padding: 15px 15px 0;
+  }
+  .md-editor.split textarea {
+    width: 50%;
   }
   .md-panel{
     margin-bottom: 20px;

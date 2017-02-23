@@ -1,4 +1,4 @@
-module.exports = function generateActions (model) {
+module.exports = function generateActions (model, sequelize) {
     return {
 
         findAll: async (ctx, next) => {
@@ -82,15 +82,17 @@ module.exports = function generateActions (model) {
         },
 
         updateById: async (ctx, next) => {
-            let result;
 
             try {
-
-                result = await model.update(ctx.request.body, {
-                    where: {
-                        id: ctx.request.body.id
-                    }
+                  await sequelize.transaction (async (t) => {
+                     return await model.update(ctx.request.body, {
+                        where: {
+                            id: ctx.request.body.id
+                        },
+                        transaction: t
+                    });
                 });
+
 
                 return ctx.body = {
                    message: '提交成功',

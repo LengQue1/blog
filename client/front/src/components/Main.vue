@@ -28,7 +28,9 @@
 
             return store.dispatch('FETCH_ITEM', {
                 params: {
-
+                    'order': [
+                        ['createdAt', 'DESC']
+                    ],
                 },
                 callback
             })

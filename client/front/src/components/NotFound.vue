@@ -1,7 +1,7 @@
 <template>
     <section class="hero">
         <div class="hero-body">
-            <div class="container">
+            <div class="notFoundcontainer">
                 <h1 class="title">
                     404 NotFound
                 </h1>
@@ -20,5 +20,8 @@
 </script>
 
 <style>
-
+    .notFoundcontainer h1{
+        display: block;
+        text-align: center;
+    }
 </style>

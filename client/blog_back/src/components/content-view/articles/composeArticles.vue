@@ -30,24 +30,27 @@
     import moment from 'moment'
 
     export default {
+        name: 'post',
         data () {
             const route = this.$route;
             let id = typeof this.$route.params.id === 'undefined' ? -1 : this.$route.params.id;
-            let form = {};
+            let form = {
+              markdownContent: ''
+            };
             return {route, form, id }
         },
 
         components: { markedEdit },
-        mounted() {
-          console.log(this.form.markdownContent = '')
-        },
+
         methods: {
             validate () {
                 console.log(this.form);
               this.form.summary = markedown(this.form.markdownContent.split('<!--more-->')[0]);
               this.form.content = markedown(this.form.markdownContent.replace(/<!--more-->/g, ''));
               this.form.category = '未分类';
-              this.form.read_num = 0;
+              if (this.form.read_num === undefined ) {
+                this.form.read_num = 0;
+              }
             },
             onSubmit () {
                 this.validate();
