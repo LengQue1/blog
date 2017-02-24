@@ -3,18 +3,7 @@ module.exports = function generateActions (model, sequelize) {
 
         findAll: async (ctx, next) => {
 
-            let query = {};
-
-            if (ctx.request.query.attributes) {
-                query = {
-                    attributes: JSON.parse(ctx.request.query.attributes)
-                }
-            }
-            if (ctx.request.query.where) {
-                query = {
-                    where: JSON.parse(ctx.request.query.where)
-                }
-            }
+            let query = ctx.request.query || {};
 
             if (ctx.request.query.params) {
                 query = JSON.parse(ctx.request.query.params);
@@ -63,10 +52,11 @@ module.exports = function generateActions (model, sequelize) {
         findById: async (ctx, next) => {
 
             let result;
+            let query = JSON.parse(ctx.request.query.params);
 
             try {
 
-                result = await model.findById(ctx.request.query.id)
+                result = await model.findById(query.id)
                 ctx.status = 201;
                 return ctx.body = result;
 
@@ -84,15 +74,14 @@ module.exports = function generateActions (model, sequelize) {
         updateById: async (ctx, next) => {
 
             try {
-                  await sequelize.transaction (async (t) => {
-                     return await model.update(ctx.request.body, {
-                        where: {
-                            id: ctx.request.body.id
-                        },
-                        transaction: t
-                    });
-                });
 
+                let result = await model.build(ctx.request.body, {
+                  where: {
+                      id: ctx.request.body.id
+                  },
+                    isNewRecord: false
+                });
+                await result.save();
 
                 return ctx.body = {
                    message: '提交成功',

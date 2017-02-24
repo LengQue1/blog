@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="main-content rounded">
+    <div id="app" class="main-content rounded" style="position: relative">
 
             <Loading-bar
                 :on-progress-done="onProgressDone"
@@ -8,24 +8,22 @@
             <keep-alive>
                 <router-view name="NavBar"></router-view>
             </keep-alive>
-        <transition
-                mode="out-in"
-                enter-active-class="fadeIn"
-                leave-active-class="fadeOut"
-                appear>
-            <keep-alive>
                 <router-view></router-view>
             </keep-alive>
-        </transition>
+            <keep-alive>
+                <my-footer></my-footer>
+            </keep-alive>
 
     </div>
 </template>
 
 <script>
     import LoadingBar from './components/Loading.vue'
+    import myFooter from  './components/footer.vue';
     export default {
         components: {
-            LoadingBar
+            LoadingBar,
+            myFooter
         },
         computed: {
             progress () {
@@ -46,11 +44,9 @@
     @import "~bulma";
     $fa-font-path: '~font-awesome/fonts/';
     @import '~font-awesome/scss/font-awesome';
+    .main-content{height: 100%;}
+    .main-content #main{
 
-    .main-content main{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
     }
     @media screen  and (min-width: 769px){
         .nav-left {

@@ -94,7 +94,6 @@ function defineModel(name, attributes) {
 		  console.log('will update entity ...');
 		  obj.updateAt = now;
 		  // obj.version ++;
-
 		}
 	  }
 	}

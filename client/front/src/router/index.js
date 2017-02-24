@@ -7,6 +7,7 @@ import Main from  '../components/Main.vue';
 import Post from '../components/Post.vue';
 import Archive from '../components/archive.vue';
 import NotFoundComponent from '../components/NotFound.vue'
+import pageContainer from  '../components/pageContainer.vue';
 
 export default new Router({
   mode: 'history',
@@ -33,6 +34,14 @@ export default new Router({
         components:{
             NavBar: NavBar,
             default: Post,
+        }
+    },
+    {
+       name: 'page',
+       path: '/?:page',
+        components: {
+           NavBar: NavBar,
+           default: pageContainer
         }
     },
     {

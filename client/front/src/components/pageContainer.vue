@@ -20,23 +20,23 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            article: {
-                type: Object,
-                required: true
-            }
-        }
+  export default {
+    computed: {
+      article () {
+        return this.$store.state.page
+      }
+    },
+    preFetch: (store, { path: pathName, params, query }, callback) => {
+      pathName = pathName.replace(/^\//g, '')
+      return store.dispatch('FETCH_PAGE', {
+        params: {
+          'order': [
+            ['createdAt', 'DESC']
+          ],
+        },
+        callback
+      })
     }
+  }
 </script>
 
-<style lang="sass" scoped>
-    .summary {
-        margin-bottom: 20px;
-    }
-    .posts{
-        margin-top: 30px;
-        margin-bottom: 30px;
-        padding: 0 2rem;
-    }
-</style>

@@ -16,7 +16,7 @@ api.logout = (conditions) => {
 };
 
 api.fetchList = (model, params) => {
-  return request.get(`${root}/${model}`, { params: params }).then( response => {
+  return request.get(`${root}/${model}`, { params: {params} }).then( response => {
     return response.data;
   })
 };
@@ -28,7 +28,7 @@ api.post = (model, form) => {
 };
 
 api.fetchById = (model, id, params) => {
-  return request.get(`${root}/${model}/${id}`, { params: params }).then(response => {
+  return request.get(`${root}/${model}/${id}`, { params: {params} }).then(response => {
     return response.data;
   })
 };

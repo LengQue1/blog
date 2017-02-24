@@ -9,10 +9,14 @@ export default new Vuex.Store({
   state: {
     count: 0,
     load: false,
+    totalPage: -1,
     items: [],
     blog: {},
+    page: {},
     progress: 0,
     archive: {},
+    prevPage: {},
+    nextPage: {},
     curPath: '',
     toggle: false
   },
@@ -43,6 +47,14 @@ export default new Vuex.Store({
 
     SET_TOGGLE_VALUE: (state, toggle) => {
         state.toggle = toggle
+    },
+
+    SET_PAGE: (state, { blog }) => {
+      state.page = blog;
+    },
+
+    SET_TOTAL_PAGE: (state, { totalPage }) => {
+      state.totalPage = totalPage;
     }
 
   },
@@ -79,7 +91,22 @@ export default new Vuex.Store({
       return api.fetchPost(params).then(items => {
         commit('SET_ITEMS', { items });
           callback && callback();
+        if (state.totalPage === -1) {
+          return api.fetchPost({params: {}}).then(totalPage => {
+            console.log(totalPage.length)
+            commit('SET_TOTAL_PAGE', {
+              totalPage: Math.ceil(totalPage.length / 4)
+            })
+          })
+        }
           return Promise.resolve();
+      })
+    },
+    FETCH_PAGE: ({ commit, state, dispatch }, { params, callback }) => {
+      return api.fetchPost(params).then(result => {
+        let blog = result[0];
+        commit('SET_PAGE', { blog });
+        callback && callback();
       })
     },
     FETCH_BLOG: ({ commit, state, dispatch }, { params, callback }) => {
@@ -94,15 +121,14 @@ export default new Vuex.Store({
     FETCH_ARCHIVE: ({ commit, state, dispatch }, { params, callback }) => {
       return api.fetchPost(params).then(items => {
         let sortedItem = items.reduce((prev, curr) => {
-          let year = curr.createdAt.slice(0, 4);
           let time = curr.createdAt.slice(0, 4);
+            // 上次返回的 prev 对象中是否存在 prev[time] 之类的对象
             if (typeof prev[time] === 'undefined') {
                 prev[time] = [curr]
             } else {
                 prev[time].push(curr)
             }
             return prev
-
         }, {});
         commit('SET_ARCHIVE', { sortedItem });
         callback && callback();

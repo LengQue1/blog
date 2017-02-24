@@ -44,7 +44,6 @@
 
         methods: {
             validate () {
-                console.log(this.form);
               this.form.summary = markedown(this.form.markdownContent.split('<!--more-->')[0]);
               this.form.content = markedown(this.form.markdownContent.replace(/<!--more-->/g, ''));
               this.form.category = '未分类';
@@ -77,7 +76,6 @@
 
         created() {
             if (this.id !== -1) {
-                console.log(this.id)
                 this.$store.dispatch('FETCH_BY_ID',{
                   id: this.id,
                   model: 'posts',

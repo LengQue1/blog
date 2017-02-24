@@ -5,18 +5,18 @@
 
       <div class="box">
 
-        <article class="media" v-for="lis in list">
+        <article class="media" v-for="(lis,index) in list">
           <div class="media-content">
             <div class="content">
               <p>
-                <strong>{{ lis.title }}</strong> <small>阅读量{{ lis.read_num }}</small> <small>更新时间: {{ lis.updateAt}}</small>
+                <strong>{{ lis.title }}</strong> <small>阅读量{{ lis.read_num }}</small> <small>创建时间: {{ lis.createdAt}}</small>
                 <br>
                 <div v-html="lis.summary"></div>
               </p>
             </div>
             <div >
               <button class="button is-primary" @click="editArticle(lis.id)">编辑</button>
-              <button class="button is-danger" @click="delArticle(lis.id, $index)">删除</button>
+              <button class="button is-danger" @click="delArticle(lis.id, index)">删除</button>
             </div>
 
           </div>
@@ -41,7 +41,11 @@
       created () {
         this.$store.dispatch('FETCH_LIST', {
             model: 'posts',
-            params: {}
+            params: {
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            }
         })
       },
       methods: {
