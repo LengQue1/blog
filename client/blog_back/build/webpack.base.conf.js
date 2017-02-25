@@ -1,63 +1,50 @@
-const path = require('path')
-const webpack = require('webpack')
-const config = require('../config')
-const utils = require('./utils')
-const projectRoot = path.resolve(__dirname, '../')
+var path = require('path')
+var utils = require('./utils')
+var config = require('../config')
+var vueLoaderConfig = require('./vue-loader.conf')
 
-const isProduction = process.env.NODE_ENV === 'production'
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
 
 module.exports = {
   entry: {
-    app: ['./src/main.js'],
-    // If you want to support IE < 11, should add `babel-polyfill` to vendor.
-    // e.g. ['babel-polyfill', 'vue', 'vue-router', 'vuex']
-    vendor: ['babel-polyfill', 'vue', 'vue-router', 'vuex']
+    app: './src/main.js'
   },
   output: {
     path: config.build.assetsRoot,
-    publicPath: isProduction ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
-    filename: '[name].js'
+    filename: '[name].js',
+    publicPath: process.env.NODE_ENV === 'production'
+      ? config.build.assetsPublicPath
+      : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.css', '.json'],
+    extensions: ['.js', '.vue', '.json'],
+    modules: [
+      resolve('src'),
+      resolve('node_modules')
+    ],
     alias: {
-      // https://github.com/vuejs/vue/wiki/Vue-2.0-RC-Starter-Resources
-      // vue: 'vue/dist/vue',
-      package: path.resolve(__dirname, '../package.json'),
-      src: path.resolve(__dirname, '../src'),
-      assets: path.resolve(__dirname, '../src/assets'),
-      components: path.resolve(__dirname, '../src/components'),
+      'vue$': 'vue/dist/vue.common.js',
+      'src': resolve('src'),
+      'assets': resolve('src/assets'),
+      'components': resolve('src/components'),
       'content-view': path.resolve(__dirname, '../src/components/content-view'),
-      // third-party
-      'plotly.js': 'plotly.js/dist/plotly',
-      // vue-addon
-      'vuex-store': path.resolve(__dirname, '../src/store')
+      'vuex-store': path.resolve(__dirname, '../src/store'),
+      'package': path.resolve(__dirname, '../package.json'),
     }
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.vue$/,
-        include: projectRoot,
-        exclude: /node_modules/,
-        enforce: 'pre'
-      },
-      {
-        test: /\.js$/,
-        include: projectRoot,
-        exclude: /node_modules/,
-        enforce: 'pre'
-      },
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
+        options: vueLoaderConfig
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: projectRoot,
-        // /node_modules\/(?!vue-bulma-.*)/
-        exclude: [new RegExp(`node_modules\\${path.sep}(?!vue-bulma-.*)`)]
+        include: [resolve('src'), resolve('test')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -76,23 +63,5 @@ module.exports = {
         }
       }
     ]
-  },
-  plugins: [
-    new webpack.LoaderOptionsPlugin({
-      vue: {
-        loaders: utils.cssLoaders({
-          sourceMap: isProduction,
-          extract: isProduction
-        }),
-        postcss: [
-          require('autoprefixer')({
-            browsers: ['last 3 versions']
-          })
-        ]
-      }
-    })
-  ],
-  performance: {
-    hints: false
   }
 }
