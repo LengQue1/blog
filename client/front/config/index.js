@@ -24,6 +24,7 @@ module.exports = {
           '^/proxyPrefix': ''
 		}
 	  }
-	}
+	},
+    cssSourceMap: false,
   }
 }

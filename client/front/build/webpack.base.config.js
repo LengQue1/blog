@@ -6,7 +6,6 @@ var projectRoot = path.resolve(__dirname, '../');
 
 
 module.exports = {
-  devtool: '#source-map',
   entry: {
     app: './src/client-entry.js'
   },
@@ -45,7 +44,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[ext]')
+          name: utils.assetsPath('img/[name].[hash].[ext]')
         }
       },
       {
@@ -53,7 +52,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[ext]')
+          name: utils.assetsPath('fonts/[name].[hash].[ext]')
         }
       }
     ]

@@ -13,11 +13,12 @@ module.exports = Object.assign({}, base, {
   plugins: [
      new webpack.DefinePlugin({
 	   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-	   'process.env.VUE_ENV': '"server"'
+	   'process.env.VUE_ENV': '"server"',
+       'process.BROWSER': false
 	 }),
-	 new webpack.LoaderOptionsPlugin({
-	   minimize: true
-	 }),
+	 // new webpack.LoaderOptionsPlugin({
+	 //   minimize: true
+	 // }),
 	 // new webpack.optimize.UglifyJsPlugin({
 	 //   compress: {
 	 //     warnings: false

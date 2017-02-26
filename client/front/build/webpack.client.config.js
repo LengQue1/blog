@@ -5,11 +5,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const utils = require('./utils');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const config = require('../config');
+const isProduction = process.env.NODE_ENV === 'production';
 
 const commonConfig = Object.assign({}, base, {
     plugins: (base.plugins || []).concat([
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+            'process.env.VUE_ENV': '"client"',
+            'process.BROWSER': true
         }),
         new HtmlWebpackPlugin({
             template: './index.html',
@@ -29,25 +32,14 @@ const commonConfig = Object.assign({}, base, {
     ])
 });
 
-if (process.env.NODE_ENV !== 'production'){
-
-    // vueConfig.loaders = utils.cssLoaders();
-
-    // commonConfig.plugins.push(
-    //   // this is needed in webpack 2 for minifying CSS
-    //   new webpack.LoaderOptionsPlugin({
-    //     minimize: false,
-    //   })
-    // )
-} else {
+if (process.env.NODE_ENV === 'production'){
 
     // // 编译 .vue 文件时使用的 loader
-    // vueConfig.loaders = utils.cssLoaders({
-    //     extract: true,
-    // });
-    console.log('执行了几次')
+    vueConfig.loaders = utils.cssLoaders({
+        extract: isProduction
+    })
     commonConfig.plugins.push(
-        new ExtractTextPlugin('styles.[hash].css'),
+        new ExtractTextPlugin('styles.[contenthash].css'),
         // this is needed in webpack 2 for minifying CSS
         new webpack.LoaderOptionsPlugin({
             minimize: true
