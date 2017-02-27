@@ -3,6 +3,7 @@
 node_modules/
 dist/
 npm-debug.log
+yarn.lock
 selenium-debug.log
 test/unit/coverage
 test/e2e/reports

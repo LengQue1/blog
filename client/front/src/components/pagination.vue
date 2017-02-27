@@ -19,6 +19,6 @@
 
 <style>
     .pagination {
-
+        justify-content: space-around;
     }
 </style>
