@@ -1,12 +1,16 @@
 import * as types from '../../mutation-types'
 import lazyLoading from './lazyLoading'
 import articles from './articles'
+import tag from './tag'
+import categories from './categories'
 import home from './home'
 
 const state = {
 	items: [
     home,
 		articles,
+    tag,
+    categories
 	]
 }
 

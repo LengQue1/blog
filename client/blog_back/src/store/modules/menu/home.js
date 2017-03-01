@@ -1,7 +1,7 @@
 import lazyLoading from './lazyLoading';
 
 export default {
-  name: 'home',
+  name: '主页',
   path: '/',
   meta: {
     icon: 'fa-home',

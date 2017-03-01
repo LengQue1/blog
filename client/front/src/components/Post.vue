@@ -14,8 +14,11 @@
                 </span>
                    <span class="post-read-count">&nbsp; | &nbsp; {{ article.read_num }} 阅读</span>
                    <span class="post-category">
-                &nbsp; | &nbsp; 分类于 {{ article.category }}
-               </span>
+                &nbsp;      | &nbsp;<i class="fa fa-folder-open"></i>分类:  <a >{{ article.category }}</a>
+                    </span>
+                   <span class="post-tag">
+                &nbsp;    | &nbsp; <i class="fa fa-tags"></i>标签:
+                    </span>
                </div>
            </header>
            <div class="post-body" v-html="article.content">

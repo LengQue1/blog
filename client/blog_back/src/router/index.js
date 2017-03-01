@@ -22,22 +22,22 @@ export default new VueRouter({
       component: Logout
     },
 		...menuModule.state.items,
+    // ...generateRoutesFromMenu(menuModule.state.items)
 	]
 })
 
 // co
 //
-// function generateRoutesFromMenu (menu = [], routes = []) {
-// 	for (let i = 0, l = menu.length; i < l; i++) {
-// 		let item = menu[i]
-// 		if (item.path) {
-// 			routes.push(item)
-// 		}
-//     console.log(item.component)
-// 		if (!item.component) {
-// 			generateRoutesFromMenu(item.children, routes)
-// 		}
-// 	}
-//
-// 	return routes
-// }
+function generateRoutesFromMenu (menu = [], routes = []) {
+	for (let i = 0, l = menu.length; i < l; i++) {
+		let item = menu[i]
+		if (item.path) {
+			routes.push(item)
+		}
+		if (!item.component) {
+			generateRoutesFromMenu(item.children, routes)
+		}
+	}
+
+	return routes
+}

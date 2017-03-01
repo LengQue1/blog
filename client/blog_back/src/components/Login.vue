@@ -1,7 +1,7 @@
 <template>
     <section>
-        <div class="container">
-          <h1>欢迎登录</h1>
+        <div class="container loginMain">
+          <h1 class="title" style="text-align: center">欢迎登录</h1>
           <label class="label">UserName</label>
           <p class="control">
             <input class="input" type="text" name="username" v-model="form.username" placeholder="Text input">
@@ -67,3 +67,9 @@
     }
 
 </script>
+
+<style lang="scss" scoped>
+  .loginMain {
+    max-width: 450px;
+  }
+</style>

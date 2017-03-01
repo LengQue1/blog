@@ -1,5 +1,5 @@
 <template>
-    <div class="whywhy??">
+    <div class="article">
         <transition
                 mode="out-in"
                 enter-active-class="fadeIn"

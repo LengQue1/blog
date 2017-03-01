@@ -25,7 +25,7 @@
   .footer {background: #fff;width: 100%;padding-top: 30px;
     padding-right: 1.5rem;
     padding-bottom: 30px;
-    padding-left: 180px;}
+    padding-left: 180px;margin-top: 2em;}
   @media screen and (max-width: 768px) {
     .footer {
       padding-left: 0;

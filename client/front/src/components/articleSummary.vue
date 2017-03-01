@@ -12,7 +12,10 @@
                 </span>
             <span class="post-read-count">&nbsp; | &nbsp; {{ article.read_num }} 阅读</span>
             <span class="post-category">
-                &nbsp; | &nbsp; 分类: {{ article.category }}
+                &nbsp; | &nbsp;<i class="fa fa-folder-open"></i>分类:  <a >{{ article.category }}</a>
+               </span>
+            <span class="post-tag">
+                &nbsp; | &nbsp; <i class="fa fa-tags"></i>标签:
                </span>
         </div>
         <div class="summary" v-html="article.summary"></div>
@@ -30,7 +33,7 @@
     }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
     .summary {
         margin-bottom: 20px;
     }
@@ -38,5 +41,11 @@
         margin-top: 30px;
         margin-bottom: 30px;
         padding: 0 2rem;
+    }
+    .post-meta{
+        font-size: 12px;
+    }
+    .post-meta span i {
+        vertical-align: middle;margin-right: 0.5em;
     }
 </style>
