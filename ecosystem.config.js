@@ -29,7 +29,7 @@ module.exports = {
       ref  : "origin/master",
       repo : "git@github.com:LengQue1/blog.git",
       path : "/home/lwh/www/blog",
-      "post-deploy" : "cd server && npm install && node init-db.js && cd ../client/front && npm run build && cd ../blog_back && npm run build && pm2 startOrRestart ecosystem.json --env production"
+      "post-deploy" : "cd server && yarn && node init-db.js && cd ../client/front && yarn && npm run build && cd ../blog_back && yarn && npm run build && pm2 startOrRestart ecosystem.json --env production"
     },
   }
 }
