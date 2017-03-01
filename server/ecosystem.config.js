@@ -8,7 +8,7 @@ module.exports = {
     // First application
     {
       name      : "blogAPI",
-      script    : "start.js",
+      script    : "./start.js",
       env: {
         COMMON_VARIABLE: "true"
       },
@@ -35,7 +35,7 @@ module.exports = {
       ref  : "origin/master",
       repo : "git@github.com:LengQue1/blog.git",
       path : "/home/lwh/www/",
-      "post-deploy" : "cd blog/server && npm install && pm2 startOrRestart ecosystem.json --env production"
+      "post-deploy" : "cd blog/server && npm install && node init-db.js && pm2 startOrRestart ecosystem.json --env production"
     },
   }
 }
