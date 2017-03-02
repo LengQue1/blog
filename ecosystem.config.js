@@ -25,7 +25,7 @@ module.exports = {
   deploy : {
     production : {
       user : "lwh",
-      host : "191.96.43.98",
+      host : "139.199.200.195",
       ref  : "origin/master",
       repo : "git@github.com:LengQue1/blog.git",
       path : "/home/lwh/www/blog",
