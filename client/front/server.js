@@ -33,6 +33,7 @@ let renderer;
 if (isProd) {
   const bundlePath = resolve('./dist/server-bundle.js');
   renderer = createRenderer(fs.readFileSync(bundlePath, 'utf-8'));
+  indexHTML = parseHTML(fs.readFileSync(resolve('./dist/index.html'), 'utf-8'))
 } else {
   require('./build/setup-dev-server')(app, {
     indexUpdated: index => {

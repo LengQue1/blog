@@ -93,7 +93,6 @@ export default new Vuex.Store({
           callback && callback();
         if (state.totalPage === -1) {
           return api.fetchPost({params: {}}).then(totalPage => {
-            console.log(totalPage.length)
             commit('SET_TOTAL_PAGE', {
               totalPage: Math.ceil(totalPage.length / 4)
             })

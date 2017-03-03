@@ -36,7 +36,6 @@
         },
         preFetch (store, { path, query, params }, callback) {
 
-          console.log(query)
           let page = query ? (typeof query.page !== 'undefined') ? parseInt(query.page) : 1 : 1
           if (page < 0) {
             page = 1

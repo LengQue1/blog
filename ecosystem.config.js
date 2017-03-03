@@ -14,7 +14,7 @@ module.exports = {
     },
     {
       name: "front",
-      script: "./client/front/server.js",
+      script: "./client/front/production.js",
       env_production : {
           NODE_ENV: "production"
       },

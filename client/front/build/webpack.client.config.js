@@ -32,7 +32,7 @@ const commonConfig = Object.assign({}, base, {
     ])
 });
 
-if (process.env.NODE_ENV === 'production'){
+if (isProduction){
 
     // // 编译 .vue 文件时使用的 loader
     vueConfig.loaders = utils.cssLoaders({
