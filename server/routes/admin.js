@@ -88,7 +88,7 @@ exports.permission = async function (ctx, next) {
 	} catch (e) {
 		return ctx.body = {
 			status: 'fail',
-			description: e
+      error: e
 		}
 	}
 
@@ -96,7 +96,7 @@ exports.permission = async function (ctx, next) {
 	if (!tokenClient) {
 		return ctx.body = {
 			status: 'fail',
-			description: 'token no fount'
+      error: 'token no fount'
 		}
 	}
 
@@ -105,7 +105,7 @@ exports.permission = async function (ctx, next) {
 	if (result == false) {
 		return ctx.body = {
 			status: 'fail',
-			description: 'token verify failed'
+      error: 'token verify failed'
 		};
 	}
 
@@ -117,7 +117,7 @@ exports.permission = async function (ctx, next) {
 	} else {
 		return ctx.body = {
 			status: 'fail',
-			description: 'Token invalid'
+      error: 'Token invalid'
 		};
 	}
 

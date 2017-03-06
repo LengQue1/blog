@@ -1,6 +1,5 @@
 import lazyLoading from './lazyLoading'
 
-
 export default {
   name: '标签',
   path: '',
@@ -13,12 +12,12 @@ export default {
     {
       name: '标签列表',
       path: 'tag/list',
-      component: lazyLoading('tag/taglist')
+      component: lazyLoading('commonModule/list')
     },
     {
       name: '创建标签',
-      path: 'tag/create',
-      component: lazyLoading('tag/tag')
+      path: 'tag/create/:id?',
+      component: lazyLoading('commonModule/create')
     }
   ]
 }

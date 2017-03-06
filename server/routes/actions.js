@@ -38,7 +38,10 @@ module.exports = function generateActions (model, sequelize) {
 
                 result = await model.create(ctx.request.body);
                 ctx.status = 201;
-                return ctx.body = result
+                return ctx.body = {
+                    status: 'success',
+                    data: result
+                }
             } catch (e) {
 
                 return ctx.body = {

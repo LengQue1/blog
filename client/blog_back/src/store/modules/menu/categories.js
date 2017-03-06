@@ -13,12 +13,12 @@ export default {
     {
       name: '分类列表',
       path: 'categories/list',
-      component: lazyLoading('categories/categorieslist')
+      component: lazyLoading('commonModule/list')
     },
     {
       name: '创建分类',
-      path: 'categories/create',
-      component: lazyLoading('categories/categories')
+      path: 'categories/create/:id?',
+      component: lazyLoading('commonModule/create')
     }
   ]
 }

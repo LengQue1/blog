@@ -4,7 +4,7 @@ require('babel-core/register')({
 
 const model = require('./model.js');
 const db = require('./db.js');
-db.sync().then(() => {
+db.sync({force: false}).then(() => {
   console.log('init db ok');
   process.exit(0);
 }).catch((e) => {

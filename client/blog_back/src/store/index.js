@@ -28,7 +28,7 @@ const store = new Vuex.Store({
     },
     [types.SET_LIST] (state, obj) {
       state.list = obj
-    }
+    },
   }
 
 });

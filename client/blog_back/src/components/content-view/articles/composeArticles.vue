@@ -1,25 +1,56 @@
 <template>
     <div class="content has-text-centered">
       <h1 class="is-title is-bold">{{route.name}}</h1>
-        <label class="label" >标题 Title</label>
-        <p class="control">
-          <input class="input" v-model="form.title" type="text" placeholder="Text Title">
-        </p>
-        <label class="label" >PathName</label>
-        <p class="control">
-          <input class="input" v-model="form.pathName" type="text" placeholder="添加前端路径后缀 Title">
-        </p>
-        <label class="label">Message</label>
+      <hr/>
+      <div class="columns">
 
-         <div class="markedContainer">
-           <markedEdit v-model="form.markdownContent"></markedEdit>
-         </div>
-
-        <div class="control is-grouped">
+        <div class="column is-three-quarters">
+          <label class="label" >标题 Title</label>
           <p class="control">
-            <button class="button is-primary" @click="onSubmit">提交</button>
+            <input class="input" v-model="form.title" type="text" placeholder="Text Title">
+          </p>
+          <label class="label" >PathName</label>
+          <p class="control">
+            <input class="input" v-model="form.pathName" type="text" placeholder="添加前端路径后缀 Title">
+          </p>
+          <label class="label">Message</label>
+          <div class="markedContainer">
+            <markedEdit v-model="form.markdownContent"></markedEdit>
+          </div>
+        </div>
+
+        <div class="column">
+          <p class="control" >
+            <label class="label" >选择分类</label>
+            <span class="select">
+              <select v-model="form.categories">
+                <option>请选择分类</option>
+                <option v-for="cate in categories">{{ cate }}</option>
+              </select>
+            </span>
+          </p>
+          <p class="control">
+            <label class="label" >选择标签</label>
+            <span class="select">
+              <select>
+                <option>请选择标签</option>
+                <option v-for="tag in tags">{{ tag }}</option>
+              </select>
+            </span>
+          </p>
+          <p class="block" style="text-align: left">
+            <span class="tag is-primary" style="margin-bottom: 10px;"><font><font>标签</font></font><button class="delete is-small"></button></span>
           </p>
         </div>
+
+      </div>
+
+      <div class="control is-grouped">
+        <p class="control">
+          <button class="button is-primary" @click="onSubmit">提交</button>
+        </p>
+      </div>
+
     </div>
 </template>
 
@@ -37,7 +68,7 @@
             let form = {
               markdownContent: ''
             };
-            return {route, form, id }
+            return {route, form, id, categories: [], tags: [] }
         },
 
         components: { markedEdit },
@@ -71,22 +102,42 @@
                     }
 
                 })
+            },
+            selectHandle () {
+
             }
         },
 
         created() {
-            if (this.id !== -1) {
-                this.$store.dispatch('FETCH_BY_ID',{
-                  id: this.id,
-                  model: 'posts',
-                  params: {
-                      id: this.id
-                  }
-                }).then( post => {
-                    this.form = post;
-                });
-            }
-        }
+          if (this.id !== -1) {
+              this.$store.dispatch('FETCH_BY_ID',{
+                id: this.id,
+                model: 'posts',
+                params: {
+                    id: this.id
+                }
+              }).then( post => {
+                  this.form = post;
+              });
+          }
+
+          let fetchTag = this.$store.dispatch('FETCH', {
+            model: 'tags',
+            params: {}
+          });
+
+          let fetchCategories = this.$store.dispatch('FETCH', {
+            model: 'categories',
+            params: {}
+          });
+
+          Promise.all([fetchCategories, fetchTag]).then(([cates, tags]) => {
+            this.categories = cates.map(value => value.name);
+            this.tags = tags.map(value => value.name);
+          }).catch(err => console.log(err));
+
+        },
+
     }
 </script>
 

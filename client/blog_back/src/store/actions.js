@@ -29,8 +29,11 @@ export default {
   },
   FETCH_LIST: ({ commit, state }, { model, params }) => {
     return Api.fetchList(model, params).then( obj => {
-      commit('SET_LIST', obj)
+      commit(types.SET_LIST, obj)
     })
+  },
+  FETCH: ({ commit, state }, { model, params }) => {
+    return Api.fetchList(model, params)
   },
   FETCH_BY_ID: ({ commit, state }, { model, id, params }) => {
     return Api.fetchById(model, id, params);
