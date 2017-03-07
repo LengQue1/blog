@@ -10,13 +10,12 @@ const blogAPI = `${host}/api/posts`
 
 const store = {};
 
-store.fetchTest = () => {
-  return request.get(`${host}/api/test`)
-	 .then((res) => {
-	   return res.text;
-	 }, (err) => {
-	   console.log(err);
-	 })
+store.fetch = (model, id, params) => {
+	console.log(model);
+	console.log(id);
+  return request.get(`${host}/api/${model}/${id}?params= ${JSON.stringify(params)}`).then((response) => {
+  	return response.body;
+	}, (err) => console.log(err));
 };
 
 store.fetchPost = (params) => {

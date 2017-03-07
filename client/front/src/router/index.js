@@ -8,49 +8,58 @@ import Post from '../components/Post.vue';
 import Archive from '../components/archive.vue';
 import NotFoundComponent from '../components/NotFound.vue'
 import pageContainer from  '../components/pageContainer.vue';
+import category from '../components/category.vue';
 
 export default new Router({
   mode: 'history',
   routes: [
-	{
-	    name: 'home',
-	    path: '/',
-		components:{
-	    	NavBar: NavBar,
-            default: Main
-		},
-	},
-	{
-        name: 'archive',
-        path: '/archive',
-        components:{
-            NavBar: NavBar,
-            default: Archive
-        }
-	},
     {
-        name: 'post',
-        path: '/post/:pathName',
-        components:{
-            NavBar: NavBar,
-            default: Post,
-        }
+      name: 'home',
+      path: '/',
+      components:{
+        NavBar: NavBar,
+        default: Main
+      },
     },
     {
-       name: 'page',
-       path: '/?:page',
-        components: {
-           NavBar: NavBar,
-           default: pageContainer
-        }
+      name: 'archive',
+      path: '/archive',
+      components:{
+          NavBar: NavBar,
+          default: Archive
+      }
     },
     {
-        name: 'NotFound',
-        path: '*',
-        components:{
-            default: NotFoundComponent,
-            NavBar: NavBar
-        }
+      name: 'post',
+      path: '/post/:pathName',
+      components:{
+          NavBar: NavBar,
+          default: Post,
+      }
+    },
+    {
+      name: 'page',
+      path: '/?:page',
+      components: {
+         NavBar: NavBar,
+         default: pageContainer
+      }
+    },
+    {
+      name: 'category',
+      path: '/category/:id',
+      components: {
+        NavBar: NavBar,
+        default: category
+      }
+    },
+    {
+      name: 'NotFound',
+      path: '*',
+      components:{
+          default: NotFoundComponent,
+          NavBar: NavBar
+      }
     }
   ]
 });

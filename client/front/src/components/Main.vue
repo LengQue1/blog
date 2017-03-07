@@ -34,7 +34,7 @@
             return this.$store.state.totalPage;
           }
         },
-        preFetch (store, { path, query, params }, callback) {
+        preFetch (store, router, { path, query, params }, callback) {
 
           let page = query ? (typeof query.page !== 'undefined') ? parseInt(query.page) : 1 : 1
           if (page < 0) {
@@ -47,7 +47,8 @@
                       ['createdAt', 'DESC']
                   ],
                   limit: 4,
-                  offset: (page - 1) * 4
+                  offset: (page - 1) * 4,
+                  include: 'categories'
                 },
                 callback
             })

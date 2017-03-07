@@ -8,6 +8,8 @@ const log4js = require('log4js');
 const md5 = require('md5');
 const apiRouter = require('./routes/routes');
 let User = model.User;
+let categories = model.categories;
+let posts = model.posts;
 let log = log4js.getLogger(config.appName);
 // 创建一个Koa对象表示web app本身:
 const app = new Koa();
@@ -31,7 +33,10 @@ Object.keys(model).forEach(value => {
 
 
 (async () => {
-
+      // // 定义表关系
+      //
+      // posts.belongsTo(categories);
+      // categories.hasMany(categories);
     const IsExistedUser  = await User.count();
 
     if (IsExistedUser == 0) {

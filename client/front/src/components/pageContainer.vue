@@ -26,7 +26,7 @@
         return this.$store.state.page
       }
     },
-    preFetch: (store, { path: pathName, params, query }, callback) => {
+    preFetch: (store, router, { path: pathName, params, query }, callback) => {
       pathName = pathName.replace(/^\//g, '')
       return store.dispatch('FETCH_PAGE', {
         params: {

@@ -19,7 +19,7 @@ export default context => {
 
   return Promise.all(matchedComponents.map(component => {
     if (component.preFetch) {
-      return component.preFetch(store, context);
+      return component.preFetch(store, router, context);
     }
   })).then(res => {
 

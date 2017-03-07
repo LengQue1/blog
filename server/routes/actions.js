@@ -9,6 +9,10 @@ module.exports = function generateActions (model, sequelize) {
                 query = JSON.parse(ctx.request.query.params);
 
                 try {
+                    if (query.include == 'categories') {
+                        query.include = [{ model: sequelize.models.categories }];
+                    }
+
 
                     if (query.where.pathName != undefined) {
                         let results = await model.findAll(query);
@@ -25,6 +29,7 @@ module.exports = function generateActions (model, sequelize) {
                 }
 
             }
+          console.log(query);
 
             let result = await model.findAll(query);
             ctx.status = 200;
@@ -59,7 +64,11 @@ module.exports = function generateActions (model, sequelize) {
 
             try {
 
-                result = await model.findById(query.id)
+                if (query.include == 'posts') {
+                  query.include = [{ model: sequelize.models.posts }];
+                }
+
+                result = await model.findById(query.id);
                 ctx.status = 201;
                 return ctx.body = result;
 

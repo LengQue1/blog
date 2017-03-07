@@ -12,7 +12,7 @@
                 </span>
             <span class="post-read-count">&nbsp; | &nbsp; {{ article.read_num }} 阅读</span>
             <span class="post-category">
-                &nbsp; | &nbsp;<i class="fa fa-folder-open"></i>分类:  <a >{{ article.category }}</a>
+                &nbsp; | &nbsp;<i class="fa fa-folder-open"></i>分类:  <router-link :to="{ path: `/category/${article.category.id}` }">{{ article.category.name }}</router-link>
                </span>
             <span class="post-tag">
                 &nbsp; | &nbsp; <i class="fa fa-tags"></i>标签:

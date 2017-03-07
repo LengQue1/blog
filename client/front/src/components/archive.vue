@@ -33,7 +33,7 @@
                 return this.$store.getters.archive
             }
         },
-        preFetch (store, to, callback) {
+        preFetch (store, router, to, callback) {
             return store.dispatch('FETCH_ARCHIVE', {
                 params: {
                     order: [

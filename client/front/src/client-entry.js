@@ -24,7 +24,7 @@ router.beforeEach((to, from, next) => {
 
         if (component.preFetch) {
             // component need fetching some data before navigating to it
-            return component.preFetch(store, to, endLoadingCallback)
+            return component.preFetch(store, router, to, endLoadingCallback)
         } else {
             // component's a static page and just navigate to it
             endLoadingCallback()

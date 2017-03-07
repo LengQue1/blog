@@ -23,18 +23,18 @@
           <p class="control" >
             <label class="label" >选择分类</label>
             <span class="select">
-              <select v-model="form.categories">
-                <option>请选择分类</option>
-                <option v-for="cate in categories">{{ cate }}</option>
+              <select v-model="form.categoryId">
+                <option value="">请选择分类</option>
+                <option v-for="cate in categories" :value="cate.id">{{ cate.name }}</option>
               </select>
             </span>
           </p>
           <p class="control">
             <label class="label" >选择标签</label>
             <span class="select">
-              <select>
-                <option>请选择标签</option>
-                <option v-for="tag in tags">{{ tag }}</option>
+              <select  @change="selectHandle()" v-model="tagSelect">
+                <option value="">请选择标签</option>
+                <option v-for="tag in tags"  :value="tag.id">{{ tag.name }}</option>
               </select>
             </span>
           </p>
@@ -66,9 +66,10 @@
             const route = this.$route;
             let id = typeof this.$route.params.id === 'undefined' ? -1 : this.$route.params.id;
             let form = {
-              markdownContent: ''
+              markdownContent: '',
+              categoryId: '',
             };
-            return {route, form, id, categories: [], tags: [] }
+            return {route, form, id, categories: [], tags: [], tagSelect: '',}
         },
 
         components: { markedEdit },
@@ -77,7 +78,6 @@
             validate () {
               this.form.summary = markedown(this.form.markdownContent.split('<!--more-->')[0]);
               this.form.content = markedown(this.form.markdownContent.replace(/<!--more-->/g, ''));
-              this.form.category = '未分类';
               if (this.form.read_num === undefined ) {
                 this.form.read_num = 0;
               }
@@ -132,8 +132,8 @@
           });
 
           Promise.all([fetchCategories, fetchTag]).then(([cates, tags]) => {
-            this.categories = cates.map(value => value.name);
-            this.tags = tags.map(value => value.name);
+            this.categories = cates.map(value => value);
+            this.tags = tags.map(value => value);
           }).catch(err => console.log(err));
 
         },

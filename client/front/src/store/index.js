@@ -116,7 +116,20 @@ export default new Vuex.Store({
         return Promise.resolve();
       })
     },
-
+    FETCH: ({ commit, state, dispatch }, { model, id, params, callback}) => {
+      return api.fetch(model,id, params).then( result => {
+        commit('SET_ITEMS', { items });
+        callback && callback();
+        if (state.totalPage === -1) {
+          return api.fetchPost({params: {}}).then(totalPage => {
+            commit('SET_TOTAL_PAGE', {
+              totalPage: Math.ceil(totalPage.length / 4)
+            })
+          })
+        }
+        return Promise.resolve();
+      })
+    },
     FETCH_ARCHIVE: ({ commit, state, dispatch }, { params, callback }) => {
       return api.fetchPost(params).then(items => {
         let sortedItem = items.reduce((prev, curr) => {

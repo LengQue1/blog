@@ -1,5 +1,7 @@
 const db = require('../db');
 
-module.exports = db.defineModel('categories',{
+const categories = db.defineModel('categories',{
   name: db.STRING(100),
 });
+
+module.exports = categories;

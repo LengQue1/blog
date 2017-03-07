@@ -28,27 +28,27 @@ function defineModel(name, attributes) {
   var attrs = {};
   for (let key in attributes){
     let value = attributes[key];
-	if (typeof value === 'object' && value['type']) {
-	  value.allowNull = value.allowNull || false;
-	  attrs[key] = value;
-	} else {
-	  attrs[key] = {
-	    type: value,
-		allowNull: false
-	  };
-	}
+		if (typeof value === 'object' && value['type']) {
+			value.allowNull = value.allowNull || false;
+			attrs[key] = value;
+		} else {
+			attrs[key] = {
+				type: value,
+				allowNull: false
+			};
+		}
   }
   attrs.id = {
     type: ID_TYPE,
-	primaryKey: true
+		primaryKey: true
   };
   attrs.createdAt = {
     type: Sequelize.STRING(50),
-	allowNull: false
+		allowNull: false
   };
   attrs.updateAt = {
     type: Sequelize.STRING(50),
-	allowNull: false
+		allowNull: false
   };
   // attrs.version = {
   //   type: Sequelize.BIGINT,
@@ -79,24 +79,24 @@ function defineModel(name, attributes) {
   
   return sequelize.define(name, attrs, {
     tableName: name,
-	timestamps: false,
-	hooks: {
-      beforeValidate: function (obj) {
-		let now = moment().format('YYYY-MM-DD HH:mm:ss');
-		if (obj.isNewRecord) {
-		  console.log('will create entity...' + obj);
-		  if (!obj.id) {
-		    obj.id = generateId();
-		  }
-		  obj.createdAt = now;
-		  obj.updateAt = now;
-		} else {
-		  console.log('will update entity ...');
-		  obj.updateAt = now;
-		  // obj.version ++;
+		timestamps: false,
+		hooks: {
+				beforeValidate: function (obj) {
+				let now = moment().format('YYYY-MM-DD HH:mm:ss');
+				if (obj.isNewRecord) {
+					console.log('will create entity...' + obj);
+					if (!obj.id) {
+						obj.id = generateId();
+					}
+					obj.createdAt = now;
+					obj.updateAt = now;
+				} else {
+					console.log('will update entity ...');
+					obj.updateAt = now;
+					// obj.version ++;
+				}
+			}
 		}
-	  }
-	}
   });
 }
 
@@ -108,7 +108,7 @@ var exp = {
   sync: () => {
 	// only allow create ddl in non-production environment:
 	if (process.env.NODE_ENV !== 'production') {
-	  return sequelize.sync({ force: true });
+	  return sequelize.sync({ force: false });
 	} else {
 	  throw new Error('Cannot sync() when NODE_ENV is set to \'production\'.');
 	}
