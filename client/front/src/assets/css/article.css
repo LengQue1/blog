@@ -29,15 +29,13 @@ article h1.title {
 }
 
 article h1.title,
-article h1.title a {
+article h1.title a, .Shining {
     /*color: #333;*/
     display: inline-block;
     position: relative;
     border-bottom: none;
-    line-height: 1.2;
-    vertical-align: top;
 }
-article h1.title a::before {
+article h1.title a::before, .Shining::before {
     content: "";
     position: absolute;
     width: 100%;
@@ -52,7 +50,7 @@ article h1.title a::before {
     transition-delay: 0s;
 }
 
-article h1.title a:hover::before{
+article h1.title a:hover::before, .Shining:hover::before{
     visibility: visible;
     transform: scaleX(1);
 }

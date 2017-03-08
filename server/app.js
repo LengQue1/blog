@@ -10,6 +10,7 @@ const apiRouter = require('./routes/routes');
 let User = model.User;
 let categories = model.categories;
 let posts = model.posts;
+let Tags = model.tags;
 let log = log4js.getLogger(config.appName);
 // 创建一个Koa对象表示web app本身:
 const app = new Koa();
@@ -33,10 +34,14 @@ Object.keys(model).forEach(value => {
 
 
 (async () => {
-      // // 定义表关系
-      //
-      // posts.belongsTo(categories);
-      // categories.hasMany(categories);
+
+    // 定义表关系
+    posts.belongsTo(categories);
+    categories.hasMany(posts);
+    posts.belongsToMany(Tags, {'through': 'Tagging'});
+    Tags.belongsToMany(posts, {'through': 'Tagging'});
+    model.sequelize.sync({force: false});
+
     const IsExistedUser  = await User.count();
 
     if (IsExistedUser == 0) {

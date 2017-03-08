@@ -36,7 +36,7 @@
                 return this.$store.state.blog
             }
         },
-        preFetch (store, router, { path: pathName, params, query }, callback) {
+        preFetch (store, { path: pathName, params, query }, callback) {
             pathName = pathName.replace(/^\/post\//g, '');
             if (pathName !== 'index.js.map') {
 

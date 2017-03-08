@@ -117,7 +117,7 @@ export default new Vuex.Store({
       })
     },
     FETCH: ({ commit, state, dispatch }, { model, id, params, callback}) => {
-      return api.fetch(model,id, params).then( result => {
+      return api.fetch(model,id, params).then( items => {
         commit('SET_ITEMS', { items });
         callback && callback();
         if (state.totalPage === -1) {

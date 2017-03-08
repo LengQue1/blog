@@ -2,7 +2,7 @@
     <footer id="footer" >
        <div class="container content has-text-centered">
             <p>
-                &copy; 2016&nbsp;-&nbsp; LengQue1的小站 &nbsp;-&nbsp;
+                &copy; 2017&nbsp;-&nbsp; Leavins的博客 &nbsp;-&nbsp;
                 <a target=_blank href="https://github.com/LengQue1">博客源码</a>
             </p>
            <p>

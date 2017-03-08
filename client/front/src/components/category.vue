@@ -2,8 +2,14 @@
     <div id="main">
         <load :show="show"></load>
         <section id="page">
-            <article-summary v-for="item in items" :article="item"></article-summary>
-            <pagination :page="page" :totalPage="totalPage"></pagination>
+            <div class="hero-body" style="background: #f9f9f9">
+                <div class="container">
+                    <p class="title">
+                        在分类 <span class="Shining" style="background: #f1f1f1;cursor: pointer;padding: 0.2em;border-radius: 6px; color: #00d1b2">{{ items.name }}</span>下的所有文章
+                    </p>
+                </div>
+            </div>
+            <article-summary v-for="item in items.posts" :article="item" :name="items.name"></article-summary>
         </section>
     </div>
 </template>
@@ -11,13 +17,11 @@
 <script>
   import load from './load.vue';
   import articleSummary from './articleSummary.vue';
-  import pagination from  './pagination.vue';
   export default {
     name: 'main',
     components: {
       load,
       articleSummary,
-      pagination
     },
     computed: {
       show () {
@@ -26,33 +30,16 @@
       items() {
         return this.$store.getters.items;
       },
-      page () {
-        let page = this.$store.state.route.query.page || 1;
-        return parseInt(page)
-      },
-      totalPage () {
-        return this.$store.state.totalPage;
-      },
     },
-    preFetch (store, router, { path, query, params }, callback) {
-
-      let page = query ? (typeof query.page !== 'undefined') ? parseInt(query.page) : 1 : 1;
-      if (page < 0) {
-        page = 1
-      }
+    preFetch (store,{ path, query, params }, callback) {
 
       return store.dispatch('FETCH', {
         model: 'categories',
-        id: 'a9c682c4-da07-41cf-87b6-c2b77f248502',
+        id: params.id,
         params: {
           where: {
-            id: 'a9c682c4-da07-41cf-87b6-c2b77f248502',
+            id: params.id,
           },
-          'order': [
-            ['createdAt', 'DESC']
-          ],
-          limit: 4,
-          offset: (page - 1) * 4,
           include: 'posts'
         },
         callback

@@ -34,7 +34,7 @@
             return this.$store.state.totalPage;
           }
         },
-        preFetch (store, router, { path, query, params }, callback) {
+        preFetch (store, { path, query, params }, callback) {
 
           let page = query ? (typeof query.page !== 'undefined') ? parseInt(query.page) : 1 : 1
           if (page < 0) {

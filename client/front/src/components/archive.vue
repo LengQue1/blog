@@ -9,7 +9,7 @@
                     </div>
                     <ul>
                         <li v-for="subItem in item" class="subItem">
-                            <router-link :to="{name: 'post', params: { pathName:subItem.pathName  }}" :title="subItem.title" >{{subItem.title}}</router-link>&nbsp
+                            <router-link class="Shining" :to="{name: 'post', params: { pathName:subItem.pathName  }}" :title="subItem.title" >{{subItem.title}}</router-link>&nbsp
                             <span class='date' style=" font-size: 12px;">{{ subItem.createdAt.split(' ')[0] }}</span>
                         </li>
                     </ul>
@@ -33,7 +33,7 @@
                 return this.$store.getters.archive
             }
         },
-        preFetch (store, router, to, callback) {
+        preFetch (store, to, callback) {
             return store.dispatch('FETCH_ARCHIVE', {
                 params: {
                     order: [

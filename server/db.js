@@ -108,7 +108,7 @@ var exp = {
   sync: () => {
 	// only allow create ddl in non-production environment:
 	if (process.env.NODE_ENV !== 'production') {
-	  return sequelize.sync({ force: false });
+	  return sequelize.sync({ force: true });
 	} else {
 	  throw new Error('Cannot sync() when NODE_ENV is set to \'production\'.');
 	}

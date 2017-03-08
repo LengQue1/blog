@@ -3,7 +3,7 @@
     <nav class="nav">
         <div class="nav-left">
             <router-link to="/" class="nav-item">
-                <h1>lengQueBlog</h1>
+                <h1>LeavinsBlog</h1>
             </router-link>
         </div>
 

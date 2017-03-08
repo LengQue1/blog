@@ -1,5 +1,8 @@
 const db = require('../db');
 
 module.exports = db.defineModel('tags',{
-  name: db.STRING(100),
+  name: {
+    type: db.STRING(100),
+    unique: true
+  },
 });

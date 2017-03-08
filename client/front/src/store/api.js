@@ -11,8 +11,6 @@ const blogAPI = `${host}/api/posts`
 const store = {};
 
 store.fetch = (model, id, params) => {
-	console.log(model);
-	console.log(id);
   return request.get(`${host}/api/${model}/${id}?params= ${JSON.stringify(params)}`).then((response) => {
   	return response.body;
 	}, (err) => console.log(err));

@@ -1,5 +1,4 @@
 const db = require('../db');
-const categories = require('./categories');
 const posts = db.defineModel('posts',{
   title: db.STRING(255),
   content: db.TEXT,
@@ -9,5 +8,4 @@ const posts = db.defineModel('posts',{
   pathName: db.STRING(255)
 });
 
-posts.belongsTo(categories);
 module.exports = posts;

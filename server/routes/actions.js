@@ -68,7 +68,7 @@ module.exports = function generateActions (model, sequelize) {
                   query.include = [{ model: sequelize.models.posts }];
                 }
 
-                result = await model.findById(query.id);
+                result = await model.find(query);
                 ctx.status = 201;
                 return ctx.body = result;
 
