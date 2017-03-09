@@ -8,16 +8,16 @@
                <div class="post-meta">
                 <span class="post-time">
                  <!--  发表于 -->
-                  <time  >
-                    {{ article.updateAt }}
+                  <time>
+                      <i class="fa fa-calendar"></i>{{ article.createdAt.slice(0, 7) }}
                   </time>
                 </span>
-                   <span class="post-read-count">&nbsp; | &nbsp; {{ article.read_num }} 阅读</span>
+                   <span class="post-read-count">&nbsp; | <i class="fa fa-eye"></i>{{ article.read_num }}</span>
                    <span class="post-category">
-                &nbsp;      | &nbsp;<i class="fa fa-folder-open"></i>分类:  <router-link :to="{ path: `/category/${article.category.id}` }">{{ article.category.name }}</router-link>
+                &nbsp;      | &nbsp;<i class="fa fa-folder-open"></i><router-link :to="{ path: `/category/${article.category.id}` }">{{ article.category.name }}</router-link>
                     </span>
                    <span class="post-tag">
-                &nbsp;    | &nbsp; <i class="fa fa-tags"></i>标签:
+                &nbsp;    | &nbsp; <i class="fa fa-tags"></i><router-link v-for="tag in article.tags" :to="{ path: `/tag/${tag.name}` }"> #{{ tag.name }}, </router-link>
                     </span>
                </div>
            </header>
@@ -29,28 +29,30 @@
 </template>
 
 <script>
-    export default {
-        name: 'post',
-        computed: {
-            article () {
-                return this.$store.state.blog
-            }
-        },
-        preFetch (store, { path: pathName, params, query }, callback) {
-            pathName = pathName.replace(/^\/post\//g, '');
-            if (pathName !== 'index.js.map') {
 
-                return store.dispatch('FETCH_BLOG', {
-                    params: {
-                        where: {
-                            pathName: pathName
-                        },
-                        include: 'categories'
-                    },
-                    callback
-                })
-            }
+    export default {
+      name: 'post',
+      computed: {
+        article () {
+          return this.$store.state.blog
         }
+      },
+      preFetch (store, { path: pathName, params, query }, callback) {
+          pathName = pathName.replace(/^\/post\//g, '');
+          if (pathName !== 'index.js.map') {
+
+              return store.dispatch('FETCH_BLOG', {
+                model: 'posts',
+                  params: {
+                      where: {
+                          pathName: pathName
+                      },
+                      include: 'catTag'
+                  },
+                  callback
+              })
+          }
+      }
     }
 </script>
 

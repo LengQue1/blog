@@ -9,10 +9,9 @@ module.exports = function generateActions (model, sequelize) {
                 query = JSON.parse(ctx.request.query.params);
 
                 try {
-                    if (query.include == 'categories') {
-                        query.include = [{ model: sequelize.models.categories }];
+                    if (query.include == 'catTag' && model.name === 'posts') {
+                        query.include = [{ model: sequelize.models.categories },{ model: sequelize.models.tags }];
                     }
-
 
                     if (query.where.pathName != undefined) {
                         let results = await model.findAll(query);
@@ -29,7 +28,7 @@ module.exports = function generateActions (model, sequelize) {
                 }
 
             }
-          console.log(query);
+
 
             let result = await model.findAll(query);
             ctx.status = 200;
@@ -42,11 +41,23 @@ module.exports = function generateActions (model, sequelize) {
             try {
 
                 result = await model.create(ctx.request.body);
+                if (ctx.request.body.tags) {
+                  ctx.request.body.tags.map(async (el, index) => {
+                    let findTag = await model.sequelize.models.tags.findAll({
+                      where: {
+                          id: el.id
+                      }
+                    });
+                    result.setTags(findTag);
+                  });
+                }
+
                 ctx.status = 201;
                 return ctx.body = {
                     status: 'success',
-                    data: result
+                    data: '添加成功'
                 }
+
             } catch (e) {
 
                 return ctx.body = {
@@ -64,11 +75,21 @@ module.exports = function generateActions (model, sequelize) {
 
             try {
 
-                if (query.include == 'posts') {
+                if (query.include === 'posts') {
                   query.include = [{ model: sequelize.models.posts }];
+                } else if (query.include === 'tags') {
+                  query.include = [{ model: sequelize.models.tags }];
+                } else if (query.include === 'catTag') {
+                  query.include = [
+                    {
+                      model: sequelize.models.posts,
+                      include: [{ model: sequelize.models.tags }, { model: sequelize.models.categories }]
+                    }
+                  ]
                 }
 
                 result = await model.find(query);
+
                 ctx.status = 201;
                 return ctx.body = result;
 
@@ -86,7 +107,6 @@ module.exports = function generateActions (model, sequelize) {
         updateById: async (ctx, next) => {
 
             try {
-
                 let result = await model.build(ctx.request.body, {
                   where: {
                       id: ctx.request.body.id
@@ -94,6 +114,18 @@ module.exports = function generateActions (model, sequelize) {
                     isNewRecord: false
                 });
                 await result.save();
+
+              if (ctx.request.body.tags) {
+                result.setTags([]);
+                await ctx.request.body.tags.map(async (el, index) => {
+                  let findTag =  await model.sequelize.models.tags.findAll({
+                    where: {
+                      id: el.id
+                    }
+                  });
+                  result.setTags(findTag)
+                });
+              }
 
                 return ctx.body = {
                    message: '提交成功',

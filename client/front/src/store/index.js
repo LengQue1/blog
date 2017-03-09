@@ -87,12 +87,12 @@ export default new Vuex.Store({
       }, 400);
       return interval
     },
-    FETCH_ITEM: ({ commit, state, dispatch }, { params, callback }) => {
-      return api.fetchPost(params).then(items => {
+    FETCH_ITEM: ({ commit, state, dispatch }, { params, model,  callback }) => {
+      return api.fetchPost(params, model).then(items => {
         commit('SET_ITEMS', { items });
           callback && callback();
         if (state.totalPage === -1) {
-          return api.fetchPost({params: {}}).then(totalPage => {
+          return api.fetchPost({params: {}}, model).then(totalPage => {
             commit('SET_TOTAL_PAGE', {
               totalPage: Math.ceil(totalPage.length / 4)
             })
@@ -101,27 +101,27 @@ export default new Vuex.Store({
           return Promise.resolve();
       })
     },
-    FETCH_PAGE: ({ commit, state, dispatch }, { params, callback }) => {
-      return api.fetchPost(params).then(result => {
+    FETCH_PAGE: ({ commit, state, dispatch }, { params, model, callback }) => {
+      return api.fetchPost(params, model).then(result => {
         let blog = result[0];
         commit('SET_PAGE', { blog });
         callback && callback();
       })
     },
-    FETCH_BLOG: ({ commit, state, dispatch }, { params, callback }) => {
-      return api.fetchPost(params).then( result => {
+    FETCH_BLOG: ({ commit, state, dispatch }, { params, model, callback }) => {
+      return api.fetchPost(params, model).then( result => {
         let blog = result[0];
         commit('SET_BLOG',{ blog });
           callback && callback();
         return Promise.resolve();
       })
     },
-    FETCH: ({ commit, state, dispatch }, { model, id, params, callback}) => {
+    FETCH_BY_ID: ({ commit, state, dispatch }, { model, id, params, callback}) => {
       return api.fetch(model,id, params).then( items => {
         commit('SET_ITEMS', { items });
         callback && callback();
         if (state.totalPage === -1) {
-          return api.fetchPost({params: {}}).then(totalPage => {
+          return api.fetchPost({params: {}}, model).then(totalPage => {
             commit('SET_TOTAL_PAGE', {
               totalPage: Math.ceil(totalPage.length / 4)
             })
@@ -130,8 +130,8 @@ export default new Vuex.Store({
         return Promise.resolve();
       })
     },
-    FETCH_ARCHIVE: ({ commit, state, dispatch }, { params, callback }) => {
-      return api.fetchPost(params).then(items => {
+    FETCH_ARCHIVE: ({ commit, state, dispatch }, { params, model, callback }) => {
+      return api.fetchPost(params, model).then(items => {
         let sortedItem = items.reduce((prev, curr) => {
           let time = curr.createdAt.slice(0, 4);
             // 上次返回的 prev 对象中是否存在 prev[time] 之类的对象

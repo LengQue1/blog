@@ -4,18 +4,18 @@
             <router-link :to="{name: 'post', params: { pathName: article.pathName }}">{{ article.title }}</router-link>
         </h1>
         <div class="post-meta">
-                <span class="post-time">
-                 <!--  发表于 -->
-                  <time  >
-                    {{ article.createdAt }}
-                  </time>
-                </span>
-            <span class="post-read-count">&nbsp; | &nbsp; {{ article.read_num }} 阅读</span>
+            <span class="post-time">
+             <!--  发表于 -->
+              <time>
+                  <i class="fa fa-calendar"></i>{{ article.createdAt == undefined ? article.createdAt : createdAt }}
+              </time>
+            </span>
+            <span class="post-read-count">&nbsp; | <i class="fa fa-eye"></i>{{ article.read_num }}</span>
             <span class="post-category">
-                &nbsp; | &nbsp;<i class="fa fa-folder-open"></i>分类:  <router-link :to="{ path: `/category/${article.categoryId}` }">{{article.category ? article.category.name : name}}</router-link>
+                &nbsp; | &nbsp;<i class="fa fa-folder-open"></i><router-link :to="{ path: `/category/${article.categoryId}` }">{{article.category ? article.category.name : name}}</router-link>
                </span>
             <span class="post-tag">
-                &nbsp; | &nbsp; <i class="fa fa-tags"></i>标签:
+                &nbsp; | &nbsp; <i class="fa fa-tags"></i><router-link v-for="tag in article.tags" :to="{ path: `/tag/${tag.name}` }">#{{ tag.name }}, </router-link>
                </span>
         </div>
         <div class="summary" v-html="article.summary"></div>
@@ -24,7 +24,12 @@
 
 <script>
     export default {
-        props: ['article','name'],
+      props: ['article','name'],
+      computed: {
+        createdAt() {
+          return this.article.createdAt.slice(0, 7);
+        }
+      },
     }
 </script>
 

@@ -35,6 +35,7 @@
         },
         preFetch (store, to, callback) {
             return store.dispatch('FETCH_ARCHIVE', {
+                model: 'posts',
                 params: {
                     order: [
                         ['createdAt', 'DESC']

@@ -9,6 +9,8 @@ import Archive from '../components/archive.vue';
 import NotFoundComponent from '../components/NotFound.vue'
 import pageContainer from  '../components/pageContainer.vue';
 import category from '../components/category.vue';
+import tag from '../components/tag.vue';
+import tags from '../components/tags.vue';
 
 export default new Router({
   mode: 'history',
@@ -51,6 +53,22 @@ export default new Router({
       components: {
         NavBar: NavBar,
         default: category
+      }
+    },
+    {
+      name: 'tag',
+      path: '/tag/:id',
+      components: {
+        NavBar: NavBar,
+        default: tag
+      }
+    },
+    {
+      name: 'tags',
+      path: '/tags',
+      components: {
+        NavBar: NavBar,
+        default: tags
       }
     },
     {

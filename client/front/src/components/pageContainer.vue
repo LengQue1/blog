@@ -29,6 +29,7 @@
     preFetch: (store, { path: pathName, params, query }, callback) => {
       pathName = pathName.replace(/^\//g, '')
       return store.dispatch('FETCH_PAGE', {
+        model: 'posts',
         params: {
           'order': [
             ['createdAt', 'DESC']

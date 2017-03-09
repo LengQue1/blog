@@ -5,7 +5,7 @@
             <div class="hero-body" style="background: #f9f9f9">
                 <div class="container">
                     <p class="title">
-                        在分类 <span class="Shining" style="background: #f1f1f1;cursor: pointer;padding: 0.2em;border-radius: 6px; color: #00d1b2">{{ items.name }}</span>下的所有文章
+                        在标签 <span class="Shining" style="background: #f1f1f1;cursor: pointer;padding: 0.2em;border-radius: 6px; color: #00d1b2">{{ items.name }}</span>下的所有文章
                     </p>
                 </div>
             </div>
@@ -18,7 +18,7 @@
   import load from './load.vue';
   import articleSummary from './articleSummary.vue';
   export default {
-    name: 'category',
+    name: 'tag',
     components: {
       load,
       articleSummary,
@@ -32,13 +32,12 @@
       },
     },
     preFetch (store,{ path, query, params }, callback) {
-
       return store.dispatch('FETCH_BY_ID', {
-        model: 'categories',
+        model: 'tags',
         id: params.id,
         params: {
           where: {
-            id: params.id,
+            name: params.id,
           },
           include: 'catTag'
         },

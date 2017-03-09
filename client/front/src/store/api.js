@@ -16,8 +16,10 @@ store.fetch = (model, id, params) => {
 	}, (err) => console.log(err));
 };
 
-store.fetchPost = (params) => {
-	return request.get(`${blogAPI}?params= ${JSON.stringify(params)}`).then((response)=> {
+store.fetchPost = (params, model) => {
+	console.log(model);
+	console.log('---上面----')
+	return request.get(`${host}/api/${model}?params= ${JSON.stringify(params)}`).then((response)=> {
 		return response.body
 	}, (err) => console.log(err))
 };

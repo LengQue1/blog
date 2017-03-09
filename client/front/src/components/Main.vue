@@ -42,13 +42,14 @@
           }
 
             return store.dispatch('FETCH_ITEM', {
+                model: 'posts',
                 params: {
                   'order': [
                       ['createdAt', 'DESC']
                   ],
                   limit: 4,
                   offset: (page - 1) * 4,
-                  include: 'categories'
+                  include: 'catTag'
                 },
                 callback
             })

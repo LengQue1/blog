@@ -26,6 +26,7 @@
             </a>
             <router-link to="/" class="nav-item is-tab " :class="{ 'is-active': curPath == '/'}" >主页</router-link>
             <router-link to="/archive" class="nav-item is-tab" :class="{'is-active': curPath == '/archive'}" >归档</router-link>
+            <router-link to="/tags" class="nav-item is-tab" :class="{'is-active': curPath == '/tags'}" >标签</router-link>
         </div>
     </nav>
 

@@ -24,8 +24,8 @@
             <label class="label" >选择分类</label>
             <span class="select">
               <select v-model="form.categoryId">
-                <option value="">请选择分类</option>
-                <option v-for="cate in categories" :value="cate.id" >{{ cate.name }}</option>
+                <option value="" >请选择分类</option>
+                <option v-for="cate in categories" :value="cate.id">{{ cate.name }}</option>
               </select>
             </span>
           </p>
@@ -39,7 +39,7 @@
             </span>
           </p>
           <p class="block" style="text-align: left">
-            <span v-for="(value, index) in tagSelect" class="tag is-primary" style="margin:0 0.5em 10px 0;"><font><font>{{value.name}}</font></font><button @click="delTag(index)" class="delete is-small"></button></span>
+            <span v-for="(value, index) in form.tags" class="tag is-primary" style="margin:0 0.5em 10px 0;"><font><font>{{value.name}}</font></font><button @click="delTag(index)" class="delete is-small"></button></span>
           </p>
         </div>
 
@@ -68,8 +68,9 @@
             let form = {
               markdownContent: '',
               categoryId: '',
+              tags: []
             };
-            return {route, form, id, categories: [], tags: [], tagSelect: [],}
+            return {route, form, id, categories: [], tags: [],}
         },
 
         components: { markedEdit },
@@ -106,19 +107,19 @@
           selectHandle (e) {
             let option = e.target.options[e.target.options.selectedIndex];
             let obj = {
-              categoryId: option.value,
+              id: option.value,
               name: option.innerHTML
             };
-            let pass = this.tagSelect.every((element,index,array) => {
+            let pass = this.form.tags.every((element,index,array) => {
               return element.name !== obj.name
             });
-            if (obj.categoryId !== '' && pass) {
-              this.tagSelect.push(obj);
+            if (obj.id !== '' && pass) {
+              this.form.tags.push(obj);
             }
             e.target.options[0].selected = true;
           },
           delTag (index) {
-            this.tagSelect.splice(index, 1);
+            this.form.tags.splice(index, 1);
           }
         },
         created() {
@@ -127,12 +128,15 @@
                 id: this.id,
                 model: 'posts',
                 params: {
+                  include: 'tags',
                   where: {
                     id: this.id
-                  }
+                  },
                 }
               }).then( post => {
-                  this.form = post;
+                this.form = post;
+                console.log(this.form.categoryId);
+//                this.form.categoryId = post.category.id;
               });
           }
 
