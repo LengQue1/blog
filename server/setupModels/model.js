@@ -15,9 +15,13 @@ for (let f of js_files) {
   module.exports[name] = require(__dirname + '/models/' + f);
 }
 
+// 建立model associate
+const models = db.sequelize.models;
+Object.values(models)
+  .filter(model => model.associate)
+  .forEach(model => model.associate(models));
+
+
 module.exports.sequelize = db.sequelize;
-//
-// module.exports.sync = () => {
-//   return db.sync();
-// };
+
 

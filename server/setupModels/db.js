@@ -24,8 +24,9 @@ var sequelize = new Sequelize(config.database, config.username, config.password,
 
 const ID_TYPE = Sequelize.STRING(50);
 
-function defineModel(name, attributes) {
+function defineModel(name, attributes, Methods) {
   var attrs = {};
+  var methods = Methods ? Methods : {};
   for (let key in attributes){
     let value = attributes[key];
 		if (typeof value === 'object' && value['type']) {
@@ -80,6 +81,7 @@ function defineModel(name, attributes) {
   return sequelize.define(name, attrs, {
     tableName: name,
 		timestamps: false,
+    classMethods: methods,
 		hooks: {
 				beforeValidate: function (obj) {
 				let now = moment().format('YYYY-MM-DD HH:mm:ss');
