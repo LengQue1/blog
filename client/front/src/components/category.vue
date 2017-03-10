@@ -19,6 +19,11 @@
   import articleSummary from './articleSummary.vue';
   export default {
     name: 'category',
+    metaInfo() {
+      return {
+        title: `在分类${this.items.name}下的所有文章`
+      }
+    },
     components: {
       load,
       articleSummary,

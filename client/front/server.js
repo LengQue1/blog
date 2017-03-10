@@ -83,7 +83,12 @@ app.get('*', (req, res) => {
   const renderStream = renderer.renderToStream(context);
 
   renderStream.once('data', () => {
-    res.write(parseMeta(indexHTML.head, context));
+    const { title, link, meta } = context.meta.inject();
+    const titleText = title.text();
+    const metaData = `${titleText}${meta.text()}${link.text()}`;
+    const chunk = indexHTML.head.replace(`<title></title>`, metaData);
+    res.write(chunk);
+    // res.write(parseMeta(indexHTML.head, context));
   });
   
   renderStream.on('data', chunk => {

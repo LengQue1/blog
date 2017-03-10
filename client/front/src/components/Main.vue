@@ -14,6 +14,16 @@
     import pagination from  './pagination.vue';
     export default {
         name: 'main',
+        data() {
+          return {
+            title: '首页'
+          }
+        },
+        metaInfo() {
+          return {
+            title: this.title
+          }
+        },
         components: {
           load,
           articleSummary,

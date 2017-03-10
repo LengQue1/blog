@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = require('../setupModels/db');
 
 module.exports = db.defineModel('users',{
   email: {

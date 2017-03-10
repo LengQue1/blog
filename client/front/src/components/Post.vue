@@ -32,6 +32,11 @@
 
     export default {
       name: 'post',
+      metaInfo() {
+        return {
+          title: this.article.title
+        }
+      },
       computed: {
         article () {
           return this.$store.state.blog

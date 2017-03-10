@@ -19,6 +19,11 @@
   import articleSummary from './articleSummary.vue';
   export default {
     name: 'tag',
+    metaInfo() {
+      return {
+        title: `在标签${this.$route.params.id}下的所有文章`
+      }
+    },
     components: {
       load,
       articleSummary,

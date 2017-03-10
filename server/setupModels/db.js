@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const config = require('./config/config-default');
+const config = require('../config/config-default');
 const uuid = require('node-uuid');
 const moment = require('moment');
 console.log('init sequelize ...');

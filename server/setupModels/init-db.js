@@ -2,7 +2,7 @@ require('babel-core/register')({
   presets: ['stage-3']
 });
 
-const model = require('./model.js');
+const model = require('./model');
 const db = require('./db.js');
 
 db.sync().then(() => {

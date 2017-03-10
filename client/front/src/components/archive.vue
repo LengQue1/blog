@@ -28,6 +28,11 @@
                 title: '归档'
             }
         },
+        metaInfo() {
+          return {
+            title: this.title
+          }
+        },
         computed: {
             items () {
                 return this.$store.getters.archive

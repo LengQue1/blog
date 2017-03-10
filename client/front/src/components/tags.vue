@@ -12,6 +12,16 @@
 <script>
     import load from './load.vue';
     export default{
+      data() {
+        return {
+          title: '标签页'
+        }
+      },
+      metaInfo() {
+        return {
+          title: this.title
+        }
+      },
       components: {
         load,
       },

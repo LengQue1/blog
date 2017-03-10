@@ -1,5 +1,5 @@
 const token = require('../token/index')
-const model = require('../model')
+const model = require('../setupModels/model')
 const User = model.User
 exports.login = async function (ctx, next) {
 	var user, users;

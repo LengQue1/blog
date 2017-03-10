@@ -11,6 +11,7 @@ export default new Vuex.Store({
     load: false,
     totalPage: -1,
     items: [],
+    siteInfo: {},
     blog: {},
     page: {},
     progress: 0,
@@ -55,10 +56,12 @@ export default new Vuex.Store({
 
     SET_TOTAL_PAGE: (state, { totalPage }) => {
       state.totalPage = totalPage;
+    },
+    SET_OPTIONS: (state, item) => {
+      state.siteInfo = item;
     }
 
   },
-
 
 
   actions: {
@@ -88,11 +91,11 @@ export default new Vuex.Store({
       return interval
     },
     FETCH_ITEM: ({ commit, state, dispatch }, { params, model,  callback }) => {
-      return api.fetchPost(params, model).then(items => {
+      return api.fetch(params, model).then(items => {
         commit('SET_ITEMS', { items });
           callback && callback();
         if (state.totalPage === -1) {
-          return api.fetchPost({params: {}}, model).then(totalPage => {
+          return api.fetch({params: {}}, model).then(totalPage => {
             commit('SET_TOTAL_PAGE', {
               totalPage: Math.ceil(totalPage.length / 4)
             })
@@ -102,14 +105,14 @@ export default new Vuex.Store({
       })
     },
     FETCH_PAGE: ({ commit, state, dispatch }, { params, model, callback }) => {
-      return api.fetchPost(params, model).then(result => {
+      return api.fetch(params, model).then(result => {
         let blog = result[0];
         commit('SET_PAGE', { blog });
         callback && callback();
       })
     },
     FETCH_BLOG: ({ commit, state, dispatch }, { params, model, callback }) => {
-      return api.fetchPost(params, model).then( result => {
+      return api.fetch(params, model).then( result => {
         let blog = result[0];
         commit('SET_BLOG',{ blog });
           callback && callback();
@@ -117,21 +120,13 @@ export default new Vuex.Store({
       })
     },
     FETCH_BY_ID: ({ commit, state, dispatch }, { model, id, params, callback}) => {
-      return api.fetch(model,id, params).then( items => {
+      return api.fetchById(model,id, params).then( items => {
         commit('SET_ITEMS', { items });
         callback && callback();
-        if (state.totalPage === -1) {
-          return api.fetchPost({params: {}}, model).then(totalPage => {
-            commit('SET_TOTAL_PAGE', {
-              totalPage: Math.ceil(totalPage.length / 4)
-            })
-          })
-        }
-        return Promise.resolve();
       })
     },
     FETCH_ARCHIVE: ({ commit, state, dispatch }, { params, model, callback }) => {
-      return api.fetchPost(params, model).then(items => {
+      return api.fetch(params, model).then(items => {
         let sortedItem = items.reduce((prev, curr) => {
           let time = curr.createdAt.slice(0, 4);
             // 上次返回的 prev 对象中是否存在 prev[time] 之类的对象
@@ -145,9 +140,17 @@ export default new Vuex.Store({
         commit('SET_ARCHIVE', { sortedItem });
         callback && callback();
       })
+    },
+    FETCH_OPTIONS: ({ commit, state, dispatch }, { params, model, callback }) => {
+      return api.fetch(params, model).then(items => {
+        let obj = items.reduce((prev, curr) => {
+          prev[curr.key] = curr
+          return prev
+        }, {});
+        commit('SET_OPTIONS', obj);
+        callback && callback();
+      })
     }
-
-
 
   },
   getters: {
@@ -158,6 +161,9 @@ export default new Vuex.Store({
       archive (state, getters) {
         const { archive } = state;
         return archive;
+      },
+      siteInfo(state, getters) {
+        return state.siteInfo;
       }
   }
 });

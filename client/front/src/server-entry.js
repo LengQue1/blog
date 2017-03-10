@@ -16,6 +16,7 @@ export default context => {
   context.query = current.query;
   context.params = current.params;
   context.url = current.fullPath;
+  context.meta = app.$meta();
 
   return Promise.all(matchedComponents.map(component => {
     if (component.preFetch) {

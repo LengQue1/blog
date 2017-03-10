@@ -33,8 +33,10 @@
 </template>
 
 <script>
+    import mixin from '../mixin/meta';
     export default {
         name: 'NavBar',
+        mixins: [mixin],
         computed: {
             curPath () {
                 return this.$store.state.curPath;
@@ -50,7 +52,36 @@
         },
         created() {
             this.$store.state.curPath = this.$store.state.route.fullPath;
-        }
+        },
+        metaInfo () {
+          const {
+            title: { value: title },
+            description: { value: description },
+            keywords: { value: keywords },
+            faviconUrl: { value: favicon }
+          } = this.siteInfo;
+
+          return {
+            title,
+            titleTemplate: `%s - ${title}`,
+            meta: [
+              { name: 'charset', content: 'UTF-8' },
+              { name: 'description', content: description },
+              { name: 'keywords', content: keywords },
+              { name: 'viewport', content: 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' }
+            ],
+            link: [
+              { rel: 'icon', href: favicon },
+            ]
+          }
+        },
+        preFetch (store,{ path, query, params }, callback) {
+          return store.dispatch('FETCH_OPTIONS', {
+            model: 'options',
+            params: {},
+            callback
+          })
+        },
     }
 </script>
 

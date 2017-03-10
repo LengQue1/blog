@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import VueMeta from 'vue-meta';
 Vue.use(Router);
+Vue.use(VueMeta);
 
 import NavBar from '../components/NavBar.vue';
 import Main from  '../components/Main.vue';

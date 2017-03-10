@@ -6,19 +6,16 @@ const host = typeof location === 'undefined'
    : 'http://localhost:8080/proxyPrefix'
    : '/proxyPrefix';
 
-const blogAPI = `${host}/api/posts`
 
 const store = {};
 
-store.fetch = (model, id, params) => {
+store.fetchById = (model, id, params) => {
   return request.get(`${host}/api/${model}/${id}?params= ${JSON.stringify(params)}`).then((response) => {
   	return response.body;
 	}, (err) => console.log(err));
 };
 
-store.fetchPost = (params, model) => {
-	console.log(model);
-	console.log('---上面----')
+store.fetch = (params, model) => {
 	return request.get(`${host}/api/${model}?params= ${JSON.stringify(params)}`).then((response)=> {
 		return response.body
 	}, (err) => console.log(err))
