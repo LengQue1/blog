@@ -2,7 +2,7 @@
     <div id="main">
         <load :show="show"></load>
         <section id="page">
-            <article-summary v-for="item in items" :article="item"></article-summary>
+            <article-summary v-for="item in items" :key="item.id" :article="item"></article-summary>
             <pagination :page="page" :totalPage="totalPage"></pagination>
         </section>
     </div>

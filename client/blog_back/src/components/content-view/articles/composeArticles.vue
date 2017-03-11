@@ -135,8 +135,6 @@
                 }
               }).then( post => {
                 this.form = post;
-                console.log(this.form.categoryId);
-//                this.form.categoryId = post.category.id;
               });
           }
 

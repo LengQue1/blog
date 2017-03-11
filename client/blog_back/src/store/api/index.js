@@ -27,6 +27,12 @@ api.post = (model, form) => {
   })
 };
 
+api.update = (model, params) => {
+  return request.put(`${root}/${model}`, params).then( response => {
+    return response.data
+  })
+};
+
 api.fetchById = (model, id, params) => {
   return request.get(`${root}/${model}/${id}`, { params: {params} }).then(response => {
     return response.data;

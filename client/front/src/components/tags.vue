@@ -4,7 +4,7 @@
       <div class="container">
           <h1 class="title">标签</h1>
           <hr>
-          <router-link v-for="item in items" class="button tagsBtn" :to="{path: `/tag/${item.name}`}" >{{ item.name }}</router-link>
+          <router-link v-for="item in items" :key="item.name" class="button tagsBtn" :to="{path: `/tag/${item.name}`}" >{{ item.name }}</router-link>
       </div>
   </section>
 </template>

@@ -10,4 +10,6 @@ export const SET_USER = 'SET_USER'
 
 export const SET_LIST = 'SET_LIST'
 
+export const SET_OPTIONS = 'SET_OPTIONS'
+
 

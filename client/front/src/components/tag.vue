@@ -9,7 +9,7 @@
                     </p>
                 </div>
             </div>
-            <article-summary v-for="item in items.posts" :article="item" :name="items.name"></article-summary>
+            <article-summary v-for="item in items.posts" :key="item.id" :article="item" :name="items.name"></article-summary>
         </section>
     </div>
 </template>

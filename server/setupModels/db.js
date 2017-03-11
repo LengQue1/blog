@@ -84,6 +84,7 @@ function defineModel(name, attributes, Methods) {
     classMethods: methods,
 		hooks: {
 				beforeValidate: function (obj) {
+					console.log(obj)
 				let now = moment().format('YYYY-MM-DD HH:mm:ss');
 				if (obj.isNewRecord) {
 					console.log('will create entity...' + obj);
