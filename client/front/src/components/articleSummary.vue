@@ -15,7 +15,7 @@
                 &nbsp; | &nbsp;<i class="fa fa-folder-open"></i><router-link :to="{ path: `/category/${article.categoryId}` }">{{article.category ? article.category.name : name}}</router-link>
                </span>
             <span class="post-tag">
-                &nbsp; | &nbsp; <i class="fa fa-tags"></i><router-link v-for="tag in article.tags" :to="{ path: `/tag/${tag.name}` }">#{{ tag.name }}, </router-link>
+                &nbsp; | &nbsp; <i class="fa fa-tags"></i><router-link v-for="tag in article.tags" :key="tag.name" :to="{ path: `/tag/${tag.name}` }">#{{ tag.name }}, </router-link>
                </span>
         </div>
         <div class="summary" v-html="article.summary"></div>

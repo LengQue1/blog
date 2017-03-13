@@ -20,6 +20,14 @@ const store = new Vuex.Store({
   state: {
     users: {},
     list: [],
+    siteInfo: {
+      keywords: {
+        value: ''
+      },
+      description: {
+        value: ''
+      },
+    },
     pkg
   },
   mutations: {
@@ -29,6 +37,9 @@ const store = new Vuex.Store({
     [types.SET_LIST] (state, obj) {
       state.list = obj
     },
+    [types.SET_OPTIONS] (state, obj) {
+      state.siteInfo = obj
+    }
   }
 
 });

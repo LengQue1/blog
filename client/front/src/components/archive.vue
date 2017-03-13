@@ -3,12 +3,12 @@
         <div class="container">
             <article class="post archive">
                 <h1 class=title>{{title}}</h1>
-                <div class="entry-content" v-for="(item, key, index) in items">
+                <div class="entry-content" v-for="(item, key, index) in items" :key="index">
                     <div class="archive_title">
                         <h3>{{ key }} ({{item.length}})</h3>
                     </div>
                     <ul>
-                        <li v-for="subItem in item" class="subItem">
+                        <li v-for="subItem in item" :key="subItem.id" class="subItem">
                             <router-link class="Shining" :to="{name: 'post', params: { pathName:subItem.pathName  }}" :title="subItem.title" >{{subItem.title}}</router-link>&nbsp
                             <span class='date' style=" font-size: 12px;">{{ subItem.createdAt.split(' ')[0] }}</span>
                         </li>

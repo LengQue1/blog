@@ -143,9 +143,7 @@ module.exports = function generateActions (model, sequelize) {
 
         deleteById: async (ctx, next) => {
             let result;
-
             try {
-
                 result = await model.destroy({ where: { id: ctx.params.id}});
                 return ctx.body = {
                     status: 'success',
@@ -159,8 +157,48 @@ module.exports = function generateActions (model, sequelize) {
             }
         },
 
-        replaceId: async (ctx, next) => {
+        update: async (ctx, next) => {
+          let result, query;
 
+          try {
+
+              query = ctx.request.body;
+              for(let opt in query.form) {
+                  result = await model.update(query.form[opt], {
+                      where: {
+                          id: query.form[opt].id
+                      },
+                  })
+              }
+
+              return ctx.body = {
+                  status: 'success',
+                  message: '更新成功'
+              }
+
+          } catch (e) {
+              console.log(e);
+              return ctx.body = {
+                  status: 'fail',
+                  error: e
+              }
+          }
+
+        },
+
+        replaceId: async (ctx, next) => {
+            let result;
+
+            try {
+
+
+
+            } catch (e) {
+                return ctx.body = {
+                    status: 'fail',
+                    error: e
+                }
+            }
         }
 
     }

@@ -1,7 +1,7 @@
 <template>
   <div class="md-panel">
     <div class="editor-toolbar">
-      <tool-items v-for="(toolItem, index) in toolbarItems" @select="handleSelect"  :class="toolItem.className" :title="toolItem.title" :tabIndex="index" ></tool-items>
+      <tool-items v-for="(toolItem, index) in toolbarItems" @select="handleSelect(index)"   :class="toolItem.className" :title="toolItem.title" :key="index" ></tool-items>
     </div>
     <div class="md-editor" :class="{
         'edit': mode=== 'edit',

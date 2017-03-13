@@ -19,6 +19,15 @@ export default {
       });
     });
   },
+  FETCH_OPTIONS: ({ commit, state }, { model, params }) => {
+    return Api.fetchList(model, params).then( items => {
+      let obj = items.reduce((prev, curr) => {
+        prev[curr.key] = curr
+        return prev
+      }, {});
+      commit(types.SET_OPTIONS, obj)
+    })
+  },
   POST: ({ commit, state }, { model, form }) => {
     let {id: id} = form;
     if (id !== undefined ) {
@@ -29,8 +38,11 @@ export default {
   },
   FETCH_LIST: ({ commit, state }, { model, params }) => {
     return Api.fetchList(model, params).then( obj => {
-      commit(types.SET_LIST, obj)
+      commit(types.SET_LIST, obj);
     })
+  },
+  FETCH_UPDATE: ({ commit, state }, { model, params }) => {
+    return Api.update(model, params);
   },
   FETCH: ({ commit, state }, { model, params }) => {
     return Api.fetchList(model, params)

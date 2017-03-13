@@ -4,13 +4,15 @@ import articles from './articles'
 import tag from './tag'
 import categories from './categories'
 import home from './home'
+import settings from './settings'
 
 const state = {
 	items: [
     home,
 		articles,
     tag,
-    categories
+    categories,
+    settings
 	]
 }
 
