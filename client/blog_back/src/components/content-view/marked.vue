@@ -185,7 +185,7 @@
         this._preInputText('<!--more-->', 12, 12)
       },
       _code() {
-        this._preInputText('```\ncode block\n```', 5, 15)
+        this._preInputText('```code block```', 3, 13)
       }
 
 
