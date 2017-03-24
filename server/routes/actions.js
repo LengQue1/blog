@@ -52,7 +52,7 @@ module.exports = function generateActions (model, sequelize) {
                   });
                 }
 
-                ctx.status = 201;
+                ctx.status = 200;
                 return ctx.body = {
                     status: 'success',
                     data: '添加成功'
@@ -90,7 +90,7 @@ module.exports = function generateActions (model, sequelize) {
 
                 result = await model.find(query);
 
-                ctx.status = 201;
+                ctx.status = 200;
                 return ctx.body = result;
 
             } catch (e) {
